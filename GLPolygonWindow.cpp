@@ -38,7 +38,7 @@ GLPolygonWindow::GLPolygonWindow(QWidget* parent, GLPolygon* polygon)
     // Add angle dial
     angleDial = new QDial();
     angleDial->setWrapping(true);
-    angleDial->setMaximum(630);
+    angleDial->setMaximum(628);
     windowLayout->addWidget(angleDial, 1, 1, 1, 1);
 }
 
