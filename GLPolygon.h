@@ -5,9 +5,9 @@ class GLPolygon
 {
     public:       
         int vertices;
-        int x;
-        int y;
-        int angle;
+        float x;
+        float y;
+        float angle;
         
         GLPolygon(int vertices = 3);
         void render();

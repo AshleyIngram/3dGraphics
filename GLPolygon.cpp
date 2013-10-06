@@ -11,6 +11,7 @@ GLPolygon::GLPolygon(int vertices)
     angle = 0;
 }
 
+// Draw a shape consisting of an arbitary number of vertices
 void GLPolygon::render()
 {
     const float PI = 3.14159;
@@ -32,18 +33,9 @@ void GLPolygon::render()
             {
                 glColor3f(0.0, 0.0, 1.0);
             }
-            
-            // Angle to render at
-            float angle = ((float)this->angle/100);
-            
-            // How far to pan on the horizontally
-            float px = ((float)this->x/100);
-            
-            // How far to pan vertically
-            float py = ((float)this->y/100);
-            
-            double x = (0.75 * sin(angleDelta * i + angle)) + px;
-            double y = (0.75 * cos(angleDelta * i + angle)) + py;
+                        
+            double x = (0.75 * sin(angleDelta * i + this->angle)) + this->x;
+            double y = (0.75 * cos(angleDelta * i + this->angle)) + this->y;
             
             // Render vertex
             glVertex2f(x, y);
