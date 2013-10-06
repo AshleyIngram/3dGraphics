@@ -61,6 +61,7 @@ void GLPolygonController::angleChanged(int angle)
 void GLPolygonController::nextFrame()
 {
     QDial* dial = window->angleDial;
-    dial->setValue(dial->value() + 1);
+    int newVal = (dial->value() + 1) % dial->maximum();
+    dial->setValue(newVal);
     window->resetInterface();
 }
