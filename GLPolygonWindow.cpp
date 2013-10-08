@@ -15,6 +15,8 @@ GLPolygonWindow::GLPolygonWindow(QWidget* parent, GLPolygon* polygon)
     
     this->polygon = polygon;
     
+    glEnable(GL_DEPTH_TEST);
+    
     // Add polygon to window
     polygonWidget = new GLPolygonWidget(this, polygon);
     windowLayout->addWidget(polygonWidget, 0, 0, 1, 1);
