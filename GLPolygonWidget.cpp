@@ -5,7 +5,7 @@
 #include "GLPolygonWindow.h"
 #include <iostream>
 
-GLPolygonWidget::GLPolygonWidget(QWidget* parent, GLPolygon* polygon) 
+GLPolygonWidget::GLPolygonWidget(QWidget* parent, IGLPolygon* polygon) 
 {
     this->parent = parent;
     this->polygon = polygon;

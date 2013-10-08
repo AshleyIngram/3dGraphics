@@ -1,15 +1,15 @@
 #ifndef _GL_POLYGON_H
 #define _GL_POLYGON_H 1
 
-class GLPolygon 
+#include "IGLPolygon.h"
+
+class GLPolygon : public IGLPolygon
 {
     public:       
         int vertices;
-        float x;
-        float y;
-        float angle;
+        
+        void render();
         
         GLPolygon(int vertices = 3);
-        void render();
 };
 #endif
