@@ -9,7 +9,7 @@ class GLPolygonWidget : public QGLWidget
     Q_OBJECT
 
     public:
-        GLPolygonWidget(QWidget* parent, GLPolygon* polygon);
+        GLPolygonWidget(QWidget* parent, IGLPolygon* polygon);
         void render();
         void mousePressEvent(QMouseEvent* event);
         void mouseMoveEvent(QMouseEvent* event);
@@ -23,7 +23,7 @@ class GLPolygonWidget : public QGLWidget
         
     private:
         QWidget* parent;
-        GLPolygon* polygon;
+        IGLPolygon* polygon;
         void handleMouseEvent(QMouseEvent* event);
 };
 #endif

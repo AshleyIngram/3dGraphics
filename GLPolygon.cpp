@@ -16,6 +16,7 @@ void GLPolygon::render()
 {
     const float PI = 3.14159;
     float angleDelta = (2 * PI) / vertices;
+    glColor3f(0.0, 1.0, 0.0);
     
     glBegin(GL_POLYGON);        
         for (int i = 0; i < vertices; i++)
@@ -23,15 +24,15 @@ void GLPolygon::render()
             // Set colour
             if (i % 3 == 0)
             {
-                glColor3f(1.0, 0.0, 0.0);
+                glColor3f(0.5, 0.0, 0.0);
             }
             else if (i % 2 == 0)
             {
-                glColor3f(0.0, 1.0, 0.0);
+                glColor3f(0.0, 0.5, 0.0);
             }
             else 
             {
-                glColor3f(0.0, 0.0, 1.0);
+                glColor3f(0.0, 0.0, 0.5);
             }
                         
             double x = (0.75 * sin(angleDelta * i + this->angle)) + this->x;
@@ -40,6 +41,5 @@ void GLPolygon::render()
             // Render vertex
             glVertex2f(x, y);
         }
-        
     glEnd();
 }
