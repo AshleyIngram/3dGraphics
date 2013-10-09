@@ -3,11 +3,12 @@
 #include "GLPolygonWindow.h"
 #include "GLPolygonController.h"
 #include "GL2DPolygon.h"
+#include "GLCube.h"
 
 int main(int argc, char *argv[]) 
 {
     QApplication app(argc, argv);
-    GL2DPolygon* polygon = new GL2DPolygon();
+    GLCube* polygon = new GLCube();
     GLPolygonWindow* window = new GLPolygonWindow(NULL, polygon);
     GLPolygonController* controller = new GLPolygonController(window, polygon);
     
