@@ -2,7 +2,7 @@
 #define _GL_POLYGON_WIDGET_H 1
 
 #include <QGLWidget>
-#include "GLPolygon.h"
+#include "GL2DPolygon.h"
 
 class GLPolygonWidget : public QGLWidget
 {

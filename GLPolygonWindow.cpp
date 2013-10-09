@@ -1,7 +1,7 @@
 #include "GLPolygonWindow.h"
 #include <iostream>
 
-GLPolygonWindow::GLPolygonWindow(QWidget* parent, GLPolygon* polygon) 
+GLPolygonWindow::GLPolygonWindow(QWidget* parent, IGLPolygon* polygon) 
  : QWidget(parent)
 {
     // Window Layout

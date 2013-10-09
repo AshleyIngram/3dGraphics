@@ -6,7 +6,7 @@
 #include <QSlider>
 #include <QDial>
 #include <QBoxLayout>
-#include "GLPolygon.h"
+#include "IGLPolygon.h"
 #include "GLPolygonWidget.h"
 
 class GLPolygonWindow : public QWidget 
@@ -14,7 +14,7 @@ class GLPolygonWindow : public QWidget
     Q_OBJECT
 
     public:
-        GLPolygon* polygon;
+        IGLPolygon* polygon;
         QMenuBar* menu;
         QMenu* fileMenu;
         QAction* actionQuit;
@@ -25,7 +25,7 @@ class GLPolygonWindow : public QWidget
         QSlider* verticalSlider;
         QDial* angleDial;
         
-        GLPolygonWindow(QWidget* parent, GLPolygon* polygon);
+        GLPolygonWindow(QWidget* parent, IGLPolygon* polygon);
         ~GLPolygonWindow();
         
         void resetInterface();

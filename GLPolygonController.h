@@ -1,7 +1,7 @@
 #ifndef _GL_POLYGON_CONTROLLER_H
 #define _GL_POLYGON_CONTROLLER_H 1
 
-#include "GLPolygon.h"
+#include "GL2DPolygon.h"
 #include "GLPolygonWindow.h"
 #include <qobject.h>
 #include <QCoreApplication>
@@ -12,7 +12,7 @@ class GLPolygonController : public QObject
     Q_OBJECT
     
     public:
-        GLPolygonController(GLPolygonWindow* window, GLPolygon* polygon);
+        GLPolygonController(GLPolygonWindow* window, IGLPolygon* polygon);
         
     public slots:
         void verticesChanged(int value);
@@ -22,7 +22,7 @@ class GLPolygonController : public QObject
         void nextFrame();
         
     private:
-        GLPolygon* polygon;
+        IGLPolygon* polygon;
         GLPolygonWindow* window;
         QTimer* timer;
 };
