@@ -20,28 +20,6 @@ GLPolygonWindow::GLPolygonWindow(QWidget* parent, IGLPolygon* polygon)
     // Add polygon to window
     polygonWidget = new GLPolygonWidget(this, polygon);
     windowLayout->addWidget(polygonWidget, 0, 0, 1, 1);
-    
-    // Add slider for vertical polygon position
-    verticalSlider = new QSlider(Qt::Vertical);
-    verticalSlider->setRange(-100, 100);
-    verticalSlider->setValue(0);
-    windowLayout->addWidget(verticalSlider, 0, 1, 1, 1); 
-    
-    // Add slider for number of vertices
-    verticesSlider = new QSlider(Qt::Horizontal);
-    windowLayout->addWidget(verticesSlider, 1, 0, 1, 1);
-    
-    // Add slider for horizontal polygon position
-    horizontalSlider = new QSlider(Qt::Horizontal);
-    horizontalSlider->setRange(-100, 100);
-    horizontalSlider->setValue(0);
-    windowLayout->addWidget(horizontalSlider, 2, 0, 1, 1);
-    
-    // Add angle dial
-    angleDial = new QDial();
-    angleDial->setWrapping(true);
-    angleDial->setMaximum(628);
-    windowLayout->addWidget(angleDial, 1, 1, 1, 1);
 }
 
 GLPolygonWindow::~GLPolygonWindow()

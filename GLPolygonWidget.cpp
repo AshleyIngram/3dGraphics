@@ -66,28 +66,13 @@ void GLPolygonWidget::handleMouseEvent(QMouseEvent* event)
 // Move a widget to position mx, my on the screen
 void GLPolygonWidget::moveWidget(int mx, int my)
 {
-    // Map from x/y to between -1 and 1
-    float x = mx / ((float)this->width()/2) - 1;
-    float y = my / ((float)this->height()/2) - 1;
-    
-    // Multiply by 100 (we're modifying the dial, not the widget directly)
-    x *= 100;
-    y *= 100;
-    
-    // Invert the y axis
-    y *= -1;
-
-    GLPolygonWindow* window = (GLPolygonWindow*)parent;
-    window->horizontalSlider->setValue(x);
-    window->verticalSlider->setValue(y);
-    ((GLPolygonWindow*)parent)->resetInterface();
+    // TODO: Defer to individual polygon
 }
 
 // Rotate the PolygonWidget by a specified amount
 void GLPolygonWidget::rotateWidget(int amount)
-{
-    GLPolygonWindow* window = (GLPolygonWindow*)parent;
-    window->angleDial->setValue(amount % window->angleDial->maximum());
+{   
+    // TODO: Defer to individual polygon
 }
 
 // Render the Polygon Widget
