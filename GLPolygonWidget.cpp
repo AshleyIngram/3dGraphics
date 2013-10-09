@@ -1,7 +1,7 @@
 #include <QWidget>
 #include <QMouseEvent>
 #include "GLPolygonWidget.h"
-#include "GLPolygon.h"
+#include "IGLPolygon.h"
 #include "GLPolygonWindow.h"
 #include <iostream>
 

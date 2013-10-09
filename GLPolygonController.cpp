@@ -2,7 +2,7 @@
 #include <iostream>
 using namespace std;
 
-GLPolygonController::GLPolygonController(GLPolygonWindow* window, GLPolygon* polygon)
+GLPolygonController::GLPolygonController(GLPolygonWindow* window, IGLPolygon* polygon)
 {
     this->window = window;
     this->polygon = polygon;

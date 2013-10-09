@@ -2,12 +2,12 @@
 #include <QVBoxLayout>
 #include "GLPolygonWindow.h"
 #include "GLPolygonController.h"
-#include "GLPolygon.h"
+#include "GL2DPolygon.h"
 
 int main(int argc, char *argv[]) 
 {
     QApplication app(argc, argv);
-    GLPolygon* polygon = new GLPolygon();
+    GL2DPolygon* polygon = new GL2DPolygon();
     GLPolygonWindow* window = new GLPolygonWindow(NULL, polygon);
     GLPolygonController* controller = new GLPolygonController(window, polygon);
     
