@@ -2,14 +2,14 @@
 #define _GL_POLYGON_WIDGET_H 1
 
 #include <QGLWidget>
-#include "GL2DPolygon.h"
+#include "GL2D.h"
 
 class GLPolygonWidget : public QGLWidget
 {
     Q_OBJECT
 
     public:
-        GLPolygonWidget(QWidget* parent, IGLPolygon* polygon);
+        GLPolygonWidget(QWidget* parent, GLPolygon* polygon);
         void render();
         void mousePressEvent(QMouseEvent* event);
         void mouseMoveEvent(QMouseEvent* event);
@@ -23,7 +23,7 @@ class GLPolygonWidget : public QGLWidget
         
     private:
         QWidget* parent;
-        IGLPolygon* polygon;
+        GLPolygon* polygon;
         void handleMouseEvent(QMouseEvent* event);
 };
 #endif

@@ -1,11 +1,11 @@
 #include <QWidget>
 #include <QMouseEvent>
 #include "GLPolygonWidget.h"
-#include "IGLPolygon.h"
+#include "GLPolygon.h"
 #include "GLPolygonWindow.h"
 #include <iostream>
 
-GLPolygonWidget::GLPolygonWidget(QWidget* parent, IGLPolygon* polygon) 
+GLPolygonWidget::GLPolygonWidget(QWidget* parent, GLPolygon* polygon) 
 {
     this->parent = parent;
     this->polygon = polygon;
