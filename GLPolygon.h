@@ -5,6 +5,6 @@ class GLPolygon
 {
 	public:
 	    // TODO: Make collections for edges/vectors
-		void render();
+		virtual void render(){};
 };
 #endif

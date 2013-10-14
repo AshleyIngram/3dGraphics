@@ -10,5 +10,7 @@ class GLCube : public GLPolygon
         GLCube();
         float vertices[8][3];
         int edges[12][2];
+        int triangles[36];
+        GLenum mode;
 };
 #endif
