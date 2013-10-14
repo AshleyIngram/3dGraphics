@@ -14,7 +14,7 @@ class GLPolygonWindow : public QWidget
     Q_OBJECT
 
     public:
-        IGLPolygon* polygon;
+        GLPolygon* polygon;
         QMenuBar* menu;
         QMenu* fileMenu;
         QAction* actionQuit;

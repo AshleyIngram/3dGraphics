@@ -4,8 +4,7 @@
 class GLPolygon
 {
 	public:
-		int vertices;
-
+	    // TODO: Make collections for edges/vectors
 		void render();
 };
 #endif
