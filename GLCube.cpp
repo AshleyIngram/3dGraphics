@@ -1,13 +1,14 @@
 #include <QGLWidget>
 #include <math.h>
-#include "IGLPolygon.h"
 #include "GLCube.h"
 #include <iostream>
 
-GLCube::GLCube() { }
+GLCube::GLCube() 
+{
+}
 
 // Draw a cube from lines
-void GLCube::render()
+void GLPolygon::render()
 {
     glMatrixMode(GL_MODELVIEW);
     glPushMatrix();

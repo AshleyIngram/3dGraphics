@@ -33,10 +33,6 @@ GLPolygonWindow::~GLPolygonWindow()
 
 void GLPolygonWindow::resetInterface()
 {
-    verticesSlider->setMinimum(3);
-    verticesSlider->setMaximum(30);
-    verticesSlider->setValue(polygon->vertices);
-    
     polygonWidget->updateGL();
     
     update();
