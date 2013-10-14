@@ -8,7 +8,7 @@ class GLCube : public GLPolygon
     public:               
         void render();
         GLCube();
-        int vertices[8][3];
+        float vertices[8][3];
         int edges[12][2];
 };
 #endif
