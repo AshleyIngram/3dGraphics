@@ -24,7 +24,6 @@ GLPolygonWindow::GLPolygonWindow(QWidget* parent, GLPolygon* polygon)
 
 GLPolygonWindow::~GLPolygonWindow()
 {
-    delete verticesSlider;
     delete polygonWidget;
     delete windowLayout;
     delete actionQuit;
