@@ -29,7 +29,7 @@ void GLPolygonWidget::paintGL()
 {
     glClear(GL_COLOR_BUFFER_BIT);
 
-    // Render child polygon    
+    // Render child polygon 
     polygon->render();
     
     // Flush to render
