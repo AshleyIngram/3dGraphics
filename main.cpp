@@ -9,6 +9,7 @@ int main(int argc, char *argv[])
 {
     QApplication app(argc, argv);
     GLTetra* polygon = new GLTetra();
+    polygon->mode = GL_TRIANGLES;
     GLPolygonWindow* window = new GLPolygonWindow(NULL, polygon);
     GLPolygonController* controller = new GLPolygonController(window, polygon);
     

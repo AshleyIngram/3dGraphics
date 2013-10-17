@@ -1,4 +1,6 @@
 #include "GLPolygonController.h"
+#include "GLTetra.h"
+#include "GLCube.h"
 #include <iostream>
 using namespace std;
 
@@ -16,6 +18,10 @@ GLPolygonController::GLPolygonController(GLPolygonWindow* window, GLPolygon* pol
     connect(window->ySlider, SIGNAL(valueChanged(int)), this, SLOT(yChanged(int)));
     
     connect(window->zSlider, SIGNAL(valueChanged(int)), this, SLOT(zChanged(int)));
+    
+    connect(window->shapeChoice, SIGNAL(currentIndexChanged(int)), this, SLOT(shapeChange(int)));
+    
+    connect(window->modeChoice, SIGNAL(currentIndexChanged(int)), this, SLOT(modeChange(int)));
 }
 
 void GLPolygonController::xChanged(int newValue)
@@ -34,4 +40,36 @@ void GLPolygonController::zChanged(int newValue)
 {
     polygon->zRotate = newValue;
     window->resetInterface();
+}
+
+void GLPolygonController::modeChange(int mode)
+{
+    this->polygon->mode = modeFromInt(mode);
+    window->resetInterface();
+}
+
+void GLPolygonController::shapeChange(int shape)
+{
+    switch(shape)
+    {
+        case (0):
+            *this->polygon = GLTetra();
+            break;
+        case (1):
+            *this->polygon = GLCube();
+            break;
+    } 
+    
+    int index = window->modeChoice->currentIndex();
+    this->polygon->mode = modeFromInt(index);
+    
+    window->resetInterface();
+}
+
+GLenum GLPolygonController::modeFromInt(int val)
+{
+    if (val == 0)
+        return GL_TRIANGLES;
+    if (val == 1)
+        return GL_LINES;
 }
