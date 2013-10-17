@@ -72,4 +72,6 @@ GLenum GLPolygonController::modeFromInt(int val)
         return GL_TRIANGLES;
     if (val == 1)
         return GL_LINES;
+    if (val == 2)
+        return GL_POINTS;
 }

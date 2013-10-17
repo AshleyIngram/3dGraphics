@@ -68,6 +68,7 @@ GLPolygonWindow::GLPolygonWindow(QWidget* parent, GLPolygon* polygon)
     modeChoice = new QComboBox();
     modeChoice->addItem(tr("Triangles"));
     modeChoice->addItem(tr("Lines"));
+    modeChoice->addItem(tr("Points"));
     rowSixLayout->addWidget(modeChoice);
     windowLayout->addLayout(rowSixLayout);
 }
