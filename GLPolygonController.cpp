@@ -50,18 +50,25 @@ void GLPolygonController::modeChange(int mode)
 
 void GLPolygonController::shapeChange(int shape)
 {
+    GLPolygon newPolygon;
+
     switch(shape)
     {
         case (0):
-            *this->polygon = GLTetra();
+            newPolygon = GLTetra();
             break;
         case (1):
-            *this->polygon = GLCube();
+            newPolygon = GLCube();
             break;
     } 
     
-    int index = window->modeChoice->currentIndex();
-    this->polygon->mode = modeFromInt(index);
+    newPolygon.mode = this->polygon->mode;
+    newPolygon.colourMode = this->polygon->colourMode;
+    newPolygon.xRotate = this->polygon->xRotate;
+    newPolygon.yRotate = this->polygon->yRotate;
+    newPolygon.zRotate = this->polygon->zRotate;
+    
+    *this->polygon = newPolygon;
     
     window->resetInterface();
 }

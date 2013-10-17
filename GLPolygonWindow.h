@@ -27,6 +27,7 @@ class GLPolygonWindow : public QWidget
         QDial* angleDial;
         QComboBox* shapeChoice;
         QComboBox* modeChoice;
+        QComboBox* colourChoice;
         
         GLPolygonWindow(QWidget* parent, GLPolygon* polygon);
         ~GLPolygonWindow();

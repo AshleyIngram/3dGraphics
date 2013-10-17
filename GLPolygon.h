@@ -20,5 +20,13 @@ class GLPolygon
 		int xRotate;
 		int yRotate;
 		int zRotate;
+		// TODO: this should be an enum
+		int colourMode;
+		
+    protected:
+        void renderLines();
+        void renderTriangles();
+        void renderPoints();
+        void interpolateColour(int val, int length);
 };
 #endif
