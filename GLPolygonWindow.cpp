@@ -71,6 +71,14 @@ GLPolygonWindow::GLPolygonWindow(QWidget* parent, GLPolygon* polygon)
     modeChoice->addItem(tr("Points"));
     rowSixLayout->addWidget(modeChoice);
     windowLayout->addLayout(rowSixLayout);
+    
+    // Seventh row is how we display colour
+    QBoxLayout* rowSevenLayout = new QBoxLayout(QBoxLayout::LeftToRight);
+    colourChoice = new QComboBox();
+    colourChoice->addItem(tr("Alternating Colours"));
+    colourChoice->addItem(tr("Solid Colour"));
+    rowSevenLayout->addWidget(colourChoice);
+    windowLayout->addLayout(rowSevenLayout);
 }
 
 GLPolygonWindow::~GLPolygonWindow()
