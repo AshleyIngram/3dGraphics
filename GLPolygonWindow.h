@@ -19,13 +19,14 @@ class GLPolygonWindow : public QWidget
         QMenuBar* menu;
         QMenu* fileMenu;
         QAction* actionQuit;
-        QGridLayout* windowLayout;
+        QBoxLayout* windowLayout;
         GLPolygonWidget* polygonWidget;
         QSlider* xSlider;
         QSlider* ySlider;
         QSlider* zSlider;
         QDial* angleDial;
         QComboBox* shapeChoice;
+        QComboBox* modeChoice;
         
         GLPolygonWindow(QWidget* parent, GLPolygon* polygon);
         ~GLPolygonWindow();

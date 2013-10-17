@@ -18,10 +18,14 @@ class GLPolygonController : public QObject
         void xChanged(int newValue);
         void yChanged(int newValue);
         void zChanged(int newValue);
+        void shapeChange(int shape);
+        void modeChange(int mode);
         
     private:
         GLPolygon* polygon;
         GLPolygonWindow* window;
+        
+        GLenum modeFromInt(int val);
 };
 
 #endif
