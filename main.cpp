@@ -8,7 +8,7 @@
 int main(int argc, char *argv[]) 
 {
     QApplication app(argc, argv);
-    GLCube* polygon = new GLCube();
+    GLTetra* polygon = new GLTetra();
     GLPolygonWindow* window = new GLPolygonWindow(NULL, polygon);
     GLPolygonController* controller = new GLPolygonController(window, polygon);
     
