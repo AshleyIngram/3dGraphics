@@ -7,8 +7,8 @@ GLTetra::GLTetra()
 {
      float verticesArray[][3] =
         {
-            { 0.5, 0.5, -0.5 }, { -0.5, -0.5, -0.5 },
-            { 0.5, -0.5, 0.5 }, { -0.5, 0.5, 0.5 }
+            { -0.5, -0.5, -0.5 }, { 0.5, -0.5, 0.5 },
+            { -0.5, 0.5, 0.5 }, { 0.5, 0.5, -0.5 }
         };
         
      int edgesArray[][2] = 
@@ -18,10 +18,10 @@ GLTetra::GLTetra()
         
      int trianglesArray[] = 
      {
-        1, 2, 3, // face 0
-        3, 0, 1, // face 1
-        3, 2, 0, // face 2
-        1, 0, 2 // face 3
+        0, 1, 2,
+        3, 0, 1,
+        3, 1, 2,
+        3, 2, 0 
      };
      
      std::vector<std::vector<float> > vertices(4);
@@ -35,7 +35,7 @@ GLTetra::GLTetra()
      {
         edges[i].assign(edgesArray[i], edgesArray[i]+2);
      }
-     
+
      std::vector<int> triangles(trianglesArray, trianglesArray + 12);
      
      this->edges = edges;

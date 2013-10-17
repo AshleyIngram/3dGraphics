@@ -14,7 +14,7 @@ GLPolygonWidget::GLPolygonWidget(QWidget* parent, GLPolygon* polygon)
 // Initial OpenGL setup
 void GLPolygonWidget::initializeGL()
 {
-    // Set default colour
+    glEnable(GL_DEPTH_TEST);
     glClearColor(0.3, 0.3, 0.3, 0.0);
 }
 
@@ -27,7 +27,7 @@ void GLPolygonWidget::resizeGL(int w, int h)
 // Repaint OpenGL widgets
 void GLPolygonWidget::paintGL()
 {
-    glClear(GL_COLOR_BUFFER_BIT);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
     // Render child polygon 
     polygon->render();

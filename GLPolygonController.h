@@ -13,6 +13,11 @@ class GLPolygonController : public QObject
     
     public:
         GLPolygonController(GLPolygonWindow* window, GLPolygon* polygon);
+    
+    public slots:
+        void xChanged(int newValue);
+        void yChanged(int newValue);
+        void zChanged(int newValue);
         
     private:
         GLPolygon* polygon;
