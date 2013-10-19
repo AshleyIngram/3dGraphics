@@ -60,6 +60,7 @@ GLPolygonWindow::GLPolygonWindow(QWidget* parent, GLPolygon* polygon)
     shapeChoice = new QComboBox();
     shapeChoice->addItem(tr("Tetrahedron"));
     shapeChoice->addItem(tr("Cube"));
+    shapeChoice->addItem(tr("Octahedron"));
     rowFiveLayout->addWidget(shapeChoice);
     windowLayout->addLayout(rowFiveLayout);
     
