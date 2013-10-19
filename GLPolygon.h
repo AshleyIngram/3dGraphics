@@ -3,6 +3,7 @@
 
 #include <vector>
 #include <QGLWidget>
+#include "Point.h"
 
 using namespace std;
 
@@ -28,5 +29,6 @@ class GLPolygon
         void renderTriangles();
         void renderPoints();
         void interpolateColour(int val, int length);
+        Point rotate(Point p);
 };
 #endif

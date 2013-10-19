@@ -1,5 +1,4 @@
 #include "GLPolygon.h"
-#include "Point.h"
 #include "Matrix.h"
 #include <iostream>
 
@@ -41,23 +40,11 @@ void GLPolygon::renderLines()
         for (int edge = 0; edge < edges.size(); edge++)
         {
             Point point1 = Point(&this->vertices[this->edges[edge][0]][0]);
-            Point point2 = Point(&this->vertices[this->edges[edge][0]][1]);
+            Point point2 = Point(&this->vertices[this->edges[edge][1]][0]);
             
             // rotate points
-            point1 = Matrix::getZRotationMatrix(this->zRotate) * &point1;
-            point2 = Matrix::getZRotationMatrix(this->zRotate) * &point2;
-            
-            std::cout << "(" << 
-                point1.toArray()[0] << ", " <<
-                point1.toArray()[1] << ", " <<
-                point1.toArray()[2] << ")"
-                << std::endl;
-                
-            std::cout << "(" << 
-                point2.toArray()[0] << ", " <<
-                point2.toArray()[1] << ", " <<
-                point2.toArray()[2] << ")"
-                << std::endl;
+            point1 = rotate(point1);
+            point2 = rotate(point2);
             
             glVertex3fv(point1.toArray());
             glVertex3fv(point2.toArray());
@@ -70,7 +57,10 @@ void GLPolygon::renderPoints()
     glBegin(GL_POINTS);
         for (int vertex = 0; vertex < vertices.size(); vertex++)
         {
-            glVertex3fv(&this->vertices[vertex][0]);
+            Point point = Point(&this->vertices[vertex][0]);
+            point = rotate(point);
+            
+            glVertex3fv(point.toArray());
         }
     glEnd();
 }
@@ -89,7 +79,10 @@ void GLPolygon::renderTriangles()
                 glColor3f(255, 0, 0);
             }
             
-            glVertex3fv(&this->vertices[this->triangles[i]][0]);             
+            Point point = Point(&this->vertices[this->triangles[i]][0]);
+            point = rotate(point);
+            
+            glVertex3fv(point.toArray());             
         }
     glEnd();
 }
@@ -105,4 +98,10 @@ void GLPolygon::interpolateColour(int i, int length)
     float glValue = (float)value/255;
     
     glColor3f(glValue, 0, 0);
+}
+
+Point GLPolygon::rotate(Point p)
+{
+    Point point = Matrix::getZRotationMatrix(this->zRotate) * &p;
+    return point;
 }

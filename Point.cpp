@@ -16,6 +16,16 @@ Point::Point(float input[3])
 
 float* Point::toArray()
 {
-    float returnVal[3] = { x, y, z };
-    return returnVal;
+    _returnVal[0] = x;
+    _returnVal[1] = y;
+    _returnVal[2] = z;
+    return _returnVal;
+}
+
+std::ostream& operator<<(std::ostream& out, Point x)
+{
+    //Overload the cout operator (<<) for pretty printing
+    out << "[" << x.x << ", " << x.y << ", " << x.z << "]";
+    
+    return out;
 }
