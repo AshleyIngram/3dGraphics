@@ -20,6 +20,7 @@ class GLPolygonController : public QObject
         void zChanged(int newValue);
         void shapeChange(int shape);
         void modeChange(int mode);
+        void colourChange(int colourMode);
         
     private:
         GLPolygon* polygon;

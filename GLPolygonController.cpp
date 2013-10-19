@@ -22,6 +22,8 @@ GLPolygonController::GLPolygonController(GLPolygonWindow* window, GLPolygon* pol
     connect(window->shapeChoice, SIGNAL(currentIndexChanged(int)), this, SLOT(shapeChange(int)));
     
     connect(window->modeChoice, SIGNAL(currentIndexChanged(int)), this, SLOT(modeChange(int)));
+    
+    connect(window->colourChoice, SIGNAL(currentIndexChanged(int)), this, SLOT(colourChange(int)));
 }
 
 void GLPolygonController::xChanged(int newValue)
@@ -70,6 +72,13 @@ void GLPolygonController::shapeChange(int shape)
     
     *this->polygon = newPolygon;
     
+    window->resetInterface();
+}
+
+void GLPolygonController::colourChange(int colourMode)
+{
+    // TODO: This is gross. It should be a constant or something, rather than just delegating across
+    polygon->colourMode = colourMode;
     window->resetInterface();
 }
 
