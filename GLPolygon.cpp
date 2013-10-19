@@ -103,5 +103,7 @@ void GLPolygon::interpolateColour(int i, int length)
 Point GLPolygon::rotate(Point p)
 {
     Point point = Matrix::getZRotationMatrix(this->zRotate) * &p;
+    point = Matrix::getXRotationMatrix(this->xRotate) * &point;    
+    point = Matrix::getYRotationMatrix(this->yRotate) * &point;
     return point;
 }

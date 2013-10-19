@@ -26,9 +26,39 @@ Point Matrix::operator*(Point* input)
     return Point(coords);
 }
 
-Matrix Matrix::getZRotationMatrix(float degrees)
+Matrix Matrix::getXRotationMatrix(int degrees)
 {
-    float radians = degrees * (M_PI / 180.0);
+    float radians = (float)degrees * (M_PI / 180);
+    
+    float values[4][4] = 
+    {
+        { 1.0, 0.0, 0.0, 0.0 },
+        { 0.0, cos(radians), sin(radians), 0.0 },
+        { 0.0, -sin(radians), cos(radians), 0.0 },
+        { 0.0, 0.0, 0.0, 1.0 }
+    };
+    
+    return Matrix(values);
+}
+
+Matrix Matrix::getYRotationMatrix(int degrees)
+{
+    float radians = (float)degrees * (M_PI / 180);
+    
+    float values[4][4] = 
+    {
+        { cos(radians), 0.0, -sin(radians), 0.0 },
+        { 0.0, 1.0, 0.0, 0.0 },
+        { sin(radians), 0.0, cos(radians), 0.0 },
+        { 0.0, 0.0, 0.0, 1.0 }
+    };
+    
+    return Matrix(values);
+}
+
+Matrix Matrix::getZRotationMatrix(int degrees)
+{
+    float radians = (float)degrees * (M_PI / 180);
     
     float values[4][4] = 
     {

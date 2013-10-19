@@ -8,7 +8,9 @@ class Matrix
     public:
         Matrix(float input[4][4]);
         Point operator*(Point* input);
-        static Matrix getZRotationMatrix(float degrees);
+        static Matrix getZRotationMatrix(int degrees);
+        static Matrix getXRotationMatrix(int degrees);
+        static Matrix getYRotationMatrix(int degrees);
 
     private:
         float _matrix[4][4];
