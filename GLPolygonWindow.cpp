@@ -1,11 +1,14 @@
 #include "GLPolygonWindow.h"
+#include <QLabel>
 #include <iostream>
 
 GLPolygonWindow::GLPolygonWindow(QWidget* parent, GLPolygon* polygon) 
  : QWidget(parent)
 {
+    this->polygon = polygon;
+
     // Window Layout
-    windowLayout = new QGridLayout(this);
+    windowLayout = new QBoxLayout(QBoxLayout::TopToBottom, this);
     
     // Menu Bar setup
     menu = new QMenuBar(this);
@@ -13,38 +16,76 @@ GLPolygonWindow::GLPolygonWindow(QWidget* parent, GLPolygon* polygon)
     actionQuit = new QAction("&Quit", this);
     fileMenu->addAction(actionQuit);
     
-    this->polygon = polygon;
-    
-    // Add polygon to window
+    // First row is the open gl canvas
+    QBoxLayout* rowOneLayout = new QBoxLayout(QBoxLayout::LeftToRight);
     polygonWidget = new GLPolygonWidget(this, polygon);
-    windowLayout->addWidget(polygonWidget, 0, 0, 1, 1);
+    rowOneLayout->addWidget(polygonWidget);
+    windowLayout->addLayout(rowOneLayout);
     
-    // Add slider for vertical polygon position
-    verticalSlider = new QSlider(Qt::Vertical);
-    verticalSlider->setRange(-100, 100);
-    verticalSlider->setValue(0);
-    windowLayout->addWidget(verticalSlider, 0, 1, 1, 1); 
+    // Second row is X Axis
+    QBoxLayout* rowTwoLayout = new QBoxLayout(QBoxLayout::LeftToRight);
+    xSlider = new QSlider(Qt::Horizontal);
+    xSlider->setRange(0, 360);
+    xSlider->setValue(0);
+    QLabel* xLabel = new QLabel();
+    xLabel->setText("Rotate the X axis");
+    rowTwoLayout->addWidget(xLabel);
+    rowTwoLayout->addWidget(xSlider);
+    windowLayout->addLayout(rowTwoLayout); 
     
-    // Add slider for number of vertices
-    verticesSlider = new QSlider(Qt::Horizontal);
-    windowLayout->addWidget(verticesSlider, 1, 0, 1, 1);
+    // Third row is Y axis
+    QBoxLayout* rowThreeLayout = new QBoxLayout(QBoxLayout::LeftToRight);
+    ySlider = new QSlider(Qt::Horizontal);
+    ySlider->setRange(0, 360);
+    ySlider->setValue(0);
+    QLabel* yLabel = new QLabel();
+    yLabel->setText("Rotate the Y axis");
+    rowThreeLayout->addWidget(yLabel);
+    rowThreeLayout->addWidget(ySlider);
+    windowLayout->addLayout(rowThreeLayout);
     
-    // Add slider for horizontal polygon position
-    horizontalSlider = new QSlider(Qt::Horizontal);
-    horizontalSlider->setRange(-100, 100);
-    horizontalSlider->setValue(0);
-    windowLayout->addWidget(horizontalSlider, 2, 0, 1, 1);
+    // Fourth row is Z axis
+    QBoxLayout* rowFourLayout = new QBoxLayout(QBoxLayout::LeftToRight);
+    zSlider = new QSlider(Qt::Horizontal);
+    zSlider->setRange(0, 360);
+    zSlider->setValue(0);
+    QLabel* zLabel = new QLabel();
+    zLabel->setText("Rotate the Z axis");
+    rowFourLayout->addWidget(zLabel);
+    rowFourLayout->addWidget(zSlider);
+    windowLayout->addLayout(rowFourLayout);
+
+    // Fifth Row is shape choice
+    QBoxLayout* rowFiveLayout = new QBoxLayout(QBoxLayout::LeftToRight);
+    shapeChoice = new QComboBox();
+    shapeChoice->addItem(tr("Tetrahedron"));
+    shapeChoice->addItem(tr("Cube"));
+    shapeChoice->addItem(tr("Octahedron"));
+    shapeChoice->addItem(tr("Dodecahedron"));
+    shapeChoice->addItem(tr("Icosahedron"));
+    rowFiveLayout->addWidget(shapeChoice);
+    windowLayout->addLayout(rowFiveLayout);
     
-    // Add angle dial
-    angleDial = new QDial();
-    angleDial->setWrapping(true);
-    angleDial->setMaximum(630);
-    windowLayout->addWidget(angleDial, 1, 1, 1, 1);
+    // Sixth row is mode choice
+    QBoxLayout* rowSixLayout = new QBoxLayout(QBoxLayout::LeftToRight);
+    modeChoice = new QComboBox();
+    modeChoice->addItem(tr("Triangles"));
+    modeChoice->addItem(tr("Lines"));
+    modeChoice->addItem(tr("Points"));
+    rowSixLayout->addWidget(modeChoice);
+    windowLayout->addLayout(rowSixLayout);
+    
+    // Seventh row is how we display colour
+    QBoxLayout* rowSevenLayout = new QBoxLayout(QBoxLayout::LeftToRight);
+    colourChoice = new QComboBox();
+    colourChoice->addItem(tr("Alternating Colours"));
+    colourChoice->addItem(tr("Solid Colour"));
+    rowSevenLayout->addWidget(colourChoice);
+    windowLayout->addLayout(rowSevenLayout);
 }
 
 GLPolygonWindow::~GLPolygonWindow()
 {
-    delete verticesSlider;
     delete polygonWidget;
     delete windowLayout;
     delete actionQuit;
@@ -54,10 +95,6 @@ GLPolygonWindow::~GLPolygonWindow()
 
 void GLPolygonWindow::resetInterface()
 {
-    verticesSlider->setMinimum(3);
-    verticesSlider->setMaximum(30);
-    verticesSlider->setValue(polygon->vertices);
-    
     polygonWidget->updateGL();
     
     update();

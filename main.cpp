@@ -2,12 +2,15 @@
 #include <QVBoxLayout>
 #include "GLPolygonWindow.h"
 #include "GLPolygonController.h"
-#include "GLPolygon.h"
+#include "GLCube.h"
+#include "GLTetra.h"
 
 int main(int argc, char *argv[]) 
 {
     QApplication app(argc, argv);
-    GLPolygon* polygon = new GLPolygon();
+    GLTetra* polygon = new GLTetra();
+    polygon->mode = GL_TRIANGLES;
+    polygon->colourMode = 0;
     GLPolygonWindow* window = new GLPolygonWindow(NULL, polygon);
     GLPolygonController* controller = new GLPolygonController(window, polygon);
     

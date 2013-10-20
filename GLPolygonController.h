@@ -1,11 +1,11 @@
 #ifndef _GL_POLYGON_CONTROLLER_H
 #define _GL_POLYGON_CONTROLLER_H 1
 
-#include "GLPolygon.h"
 #include "GLPolygonWindow.h"
 #include <qobject.h>
 #include <QCoreApplication>
 #include <QTimer>
+#include "GLPolygon.h"
 
 class GLPolygonController : public QObject
 {
@@ -13,18 +13,20 @@ class GLPolygonController : public QObject
     
     public:
         GLPolygonController(GLPolygonWindow* window, GLPolygon* polygon);
-        
+    
     public slots:
-        void verticesChanged(int value);
-        void horizontalChanged(int x);
-        void verticalChanged(int y);
-        void angleChanged(int angle);
-        void nextFrame();
+        void xChanged(int newValue);
+        void yChanged(int newValue);
+        void zChanged(int newValue);
+        void shapeChange(int shape);
+        void modeChange(int mode);
+        void colourChange(int colourMode);
         
     private:
         GLPolygon* polygon;
         GLPolygonWindow* window;
-        QTimer* timer;
+        
+        GLenum modeFromInt(int val);
 };
 
 #endif
