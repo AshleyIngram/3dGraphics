@@ -3,6 +3,7 @@
 #include "GLCube.h"
 #include "GLOcta.h"
 #include "GLDodec.h"
+#include "GLIcosa.h"
 #include <iostream>
 using namespace std;
 
@@ -66,8 +67,13 @@ void GLPolygonController::shapeChange(int shape)
             break;
         case (2):
             newPolygon = GLOcta();
+            break;
         case(3):
             newPolygon = GLDodec();
+            break;
+        case(4):
+            newPolygon = GLIcosa();
+            break;
     } 
     
     newPolygon.mode = this->polygon->mode;
