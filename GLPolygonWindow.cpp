@@ -62,6 +62,7 @@ GLPolygonWindow::GLPolygonWindow(QWidget* parent, GLPolygon* polygon)
     shapeChoice->addItem(tr("Cube"));
     shapeChoice->addItem(tr("Octahedron"));
     shapeChoice->addItem(tr("Dodecahedron"));
+    shapeChoice->addItem(tr("Icosahedron"));
     rowFiveLayout->addWidget(shapeChoice);
     windowLayout->addLayout(rowFiveLayout);
     
