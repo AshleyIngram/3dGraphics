@@ -5,6 +5,7 @@
 #include <QMenuBar>
 #include <QSlider>
 #include <QDial>
+#include <QComboBox>
 #include <QBoxLayout>
 #include "GLPolygon.h"
 #include "GLPolygonWidget.h"
@@ -18,12 +19,15 @@ class GLPolygonWindow : public QWidget
         QMenuBar* menu;
         QMenu* fileMenu;
         QAction* actionQuit;
-        QGridLayout* windowLayout;
+        QBoxLayout* windowLayout;
         GLPolygonWidget* polygonWidget;
-        QSlider* verticesSlider;
-        QSlider* horizontalSlider;
-        QSlider* verticalSlider;
+        QSlider* xSlider;
+        QSlider* ySlider;
+        QSlider* zSlider;
         QDial* angleDial;
+        QComboBox* shapeChoice;
+        QComboBox* modeChoice;
+        QComboBox* colourChoice;
         
         GLPolygonWindow(QWidget* parent, GLPolygon* polygon);
         ~GLPolygonWindow();

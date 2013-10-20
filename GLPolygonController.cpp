@@ -1,4 +1,9 @@
 #include "GLPolygonController.h"
+#include "GLTetra.h"
+#include "GLCube.h"
+#include "GLOcta.h"
+#include "GLDodec.h"
+#include "GLIcosa.h"
 #include <iostream>
 using namespace std;
 
@@ -7,55 +12,94 @@ GLPolygonController::GLPolygonController(GLPolygonWindow* window, GLPolygon* pol
     this->window = window;
     this->polygon = polygon;
     
-    
     // Hook up quit event
-    connect(window->actionQuit, SIGNAL(triggered()), QCoreApplication::instance(), SLOT(quit()));
+    connect(window->actionQuit, SIGNAL(triggered()), QCoreApplication::instance(), SLOT(quit()));   
     
-    // Hook up slider to increase number of vertices
-    connect(window->verticesSlider, SIGNAL(valueChanged(int)), this, SLOT(verticesChanged(int)));
+    // Rotation sliders
+    connect(window->xSlider, SIGNAL(valueChanged(int)), this, SLOT(xChanged(int)));
     
-    // Hook up slider to pan the polygon up and down
-    connect(window->verticalSlider, SIGNAL(valueChanged(int)), this, SLOT(verticalChanged(int)));
-        
-        // Hook up the slider to pan the polygon left and right
-        connect(window->horizontalSlider, SIGNAL(valueChanged(int)), this, SLOT(horizontalChanged(int)));
-        
-        // Hook up the dial to rotate the polygon
-        connect(window->angleDial, SIGNAL(valueChanged(int)), this, SLOT(angleChanged(int)));
-        
-        // Set the timer to animate polygon rotation
-        timer = new QTimer(this);
-        connect(timer, SIGNAL(timeout()), this, SLOT(nextFrame()));
-        timer->start(16.67); 
+    connect(window->ySlider, SIGNAL(valueChanged(int)), this, SLOT(yChanged(int)));
+    
+    connect(window->zSlider, SIGNAL(valueChanged(int)), this, SLOT(zChanged(int)));
+    
+    connect(window->shapeChoice, SIGNAL(currentIndexChanged(int)), this, SLOT(shapeChange(int)));
+    
+    connect(window->modeChoice, SIGNAL(currentIndexChanged(int)), this, SLOT(modeChange(int)));
+    
+    connect(window->colourChoice, SIGNAL(currentIndexChanged(int)), this, SLOT(colourChange(int)));
 }
 
-void GLPolygonController::verticesChanged(int newValue)
+void GLPolygonController::xChanged(int newValue)
 {
-    polygon->vertices = newValue;        
+    polygon->xRotate = newValue;
     window->resetInterface();
 }
 
-void GLPolygonController::horizontalChanged(int x)
+void GLPolygonController::yChanged(int newValue)
 {
-    polygon->x = x;
+    polygon->yRotate = newValue;
     window->resetInterface();
 }
 
-void GLPolygonController::verticalChanged(int y)
+void GLPolygonController::zChanged(int newValue)
 {
-    polygon->y = y;
+    polygon->zRotate = newValue;
     window->resetInterface();
 }
 
-void GLPolygonController::angleChanged(int angle)
+void GLPolygonController::modeChange(int mode)
 {
-    polygon->angle = angle;
+    this->polygon->mode = modeFromInt(mode);
     window->resetInterface();
 }
 
-void GLPolygonController::nextFrame()
+void GLPolygonController::shapeChange(int shape)
 {
-    QDial* dial = window->angleDial;
-    dial->setValue(dial->value() + 1);
+    GLPolygon newPolygon;
+
+    switch(shape)
+    {
+        case (0):
+            newPolygon = GLTetra();
+            break;
+        case (1):
+            newPolygon = GLCube();
+            break;
+        case (2):
+            newPolygon = GLOcta();
+            break;
+        case(3):
+            newPolygon = GLDodec();
+            break;
+        case(4):
+            newPolygon = GLIcosa();
+            break;
+    } 
+    
+    newPolygon.mode = this->polygon->mode;
+    newPolygon.colourMode = this->polygon->colourMode;
+    newPolygon.xRotate = this->polygon->xRotate;
+    newPolygon.yRotate = this->polygon->yRotate;
+    newPolygon.zRotate = this->polygon->zRotate;
+    
+    *this->polygon = newPolygon;
+    
     window->resetInterface();
+}
+
+void GLPolygonController::colourChange(int colourMode)
+{
+    // TODO: This is gross. It should be a constant or something, rather than just delegating across
+    polygon->colourMode = colourMode;
+    window->resetInterface();
+}
+
+GLenum GLPolygonController::modeFromInt(int val)
+{
+    if (val == 0)
+        return GL_TRIANGLES;
+    if (val == 1)
+        return GL_LINES;
+    if (val == 2)
+        return GL_POINTS;
 }
