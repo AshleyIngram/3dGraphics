@@ -4,6 +4,7 @@
 #include "GLPolygonController.h"
 #include "GLCube.h"
 #include "GLTetra.h"
+#include "GLSphere.h"
 
 int main(int argc, char *argv[]) 
 {
@@ -18,7 +19,6 @@ int main(int argc, char *argv[])
     window->show();
     app.exec();
     
-    delete polygon;
     delete controller;
     delete window;
     

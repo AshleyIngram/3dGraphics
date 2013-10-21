@@ -10,7 +10,7 @@ using namespace std;
 class GLPolygon
 {
 	public:
-		void render();
+		virtual void render();
 		void rotate(int degrees);
 		
 		// TODO: Add getters and setters

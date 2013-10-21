@@ -80,3 +80,9 @@ void GLPolygonWidget::render()
 {
     GLPolygonWidget::paintGL();
 }
+
+void GLPolygonWidget::changePolygon(GLPolygon* newPolygon)
+{
+    // Assume the actual object is cleaned up in the caller
+    this->polygon = newPolygon;
+}

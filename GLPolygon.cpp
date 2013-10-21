@@ -11,12 +11,6 @@ void GLPolygon::render()
     // Set initial colour. We can reset it later if need be
     glColor3f(1.0, 0.0, 0.0);
     
-    /*
-    glRotatef(this->xRotate, 1, 0, 0);
-    glRotatef(this->yRotate, 0, 1, 0);
-    glRotatef(this->zRotate, 0, 0, 1);
-    */
-    
     if (this->mode == GL_LINES) 
     {
         renderLines();

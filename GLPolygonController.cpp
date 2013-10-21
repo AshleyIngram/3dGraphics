@@ -4,6 +4,7 @@
 #include "GLOcta.h"
 #include "GLDodec.h"
 #include "GLIcosa.h"
+#include "GLSphere.h"
 #include <iostream>
 using namespace std;
 
@@ -55,34 +56,39 @@ void GLPolygonController::modeChange(int mode)
 
 void GLPolygonController::shapeChange(int shape)
 {
-    GLPolygon newPolygon;
+    GLPolygon* newPolygon;
 
     switch(shape)
     {
         case (0):
-            newPolygon = GLTetra();
+            newPolygon = new GLTetra();
             break;
         case (1):
-            newPolygon = GLCube();
+            newPolygon = new GLCube();
             break;
         case (2):
-            newPolygon = GLOcta();
+            newPolygon = new GLOcta();
             break;
         case(3):
-            newPolygon = GLDodec();
+            newPolygon = new GLDodec();
             break;
         case(4):
-            newPolygon = GLIcosa();
+            newPolygon = new GLIcosa();
+            break;
+        case(5):
+            newPolygon = new GLSphere();
             break;
     } 
     
-    newPolygon.mode = this->polygon->mode;
-    newPolygon.colourMode = this->polygon->colourMode;
-    newPolygon.xRotate = this->polygon->xRotate;
-    newPolygon.yRotate = this->polygon->yRotate;
-    newPolygon.zRotate = this->polygon->zRotate;
+    newPolygon->mode = this->polygon->mode;
+    newPolygon->colourMode = this->polygon->colourMode;
+    newPolygon->xRotate = this->polygon->xRotate;
+    newPolygon->yRotate = this->polygon->yRotate;
+    newPolygon->zRotate = this->polygon->zRotate;
     
-    *this->polygon = newPolygon;
+    window->changePolygon(newPolygon);
+    delete this->polygon;
+    this->polygon = newPolygon;
     
     window->resetInterface();
 }
@@ -102,4 +108,9 @@ GLenum GLPolygonController::modeFromInt(int val)
         return GL_LINES;
     if (val == 2)
         return GL_POINTS;
+}
+
+GLPolygonController::~GLPolygonController() 
+{
+    delete this->polygon;
 }

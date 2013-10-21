@@ -63,6 +63,7 @@ GLPolygonWindow::GLPolygonWindow(QWidget* parent, GLPolygon* polygon)
     shapeChoice->addItem(tr("Octahedron"));
     shapeChoice->addItem(tr("Dodecahedron"));
     shapeChoice->addItem(tr("Icosahedron"));
+    shapeChoice->addItem(tr("Sphere"));
     rowFiveLayout->addWidget(shapeChoice);
     windowLayout->addLayout(rowFiveLayout);
     
@@ -95,7 +96,13 @@ GLPolygonWindow::~GLPolygonWindow()
 
 void GLPolygonWindow::resetInterface()
 {
-    polygonWidget->updateGL();
-    
+    polygonWidget->updateGL();    
     update();
+}
+
+void GLPolygonWindow::changePolygon(GLPolygon* newPolygon)
+{
+    // Assume calling method is cleaning up
+    this->polygon = newPolygon;
+    polygonWidget->changePolygon(newPolygon);
 }

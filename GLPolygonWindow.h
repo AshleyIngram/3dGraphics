@@ -29,6 +29,8 @@ class GLPolygonWindow : public QWidget
         QComboBox* modeChoice;
         QComboBox* colourChoice;
         
+        void changePolygon(GLPolygon* polygon);
+        
         GLPolygonWindow(QWidget* parent, GLPolygon* polygon);
         ~GLPolygonWindow();
         

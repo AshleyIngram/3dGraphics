@@ -13,6 +13,7 @@ class GLPolygonWidget : public QGLWidget
         void render();
         void mousePressEvent(QMouseEvent* event);
         void mouseMoveEvent(QMouseEvent* event);
+        void changePolygon(GLPolygon* polygon);
         
     protected:
         void initializeGL();
