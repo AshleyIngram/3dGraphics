@@ -70,6 +70,16 @@ GLPolygonWindow::GLPolygonWindow(QWidget* parent, GLPolygon* polygon)
     modeChoice->addItem(tr("Points"));
     rowSixLayout->addWidget(modeChoice);
     windowLayout->addLayout(rowSixLayout);
+    
+    // Seventh row is lighting choice
+    QBoxLayout* rowSevenLayout = new QBoxLayout(QBoxLayout::LeftToRight);
+    colourChoice = new QComboBox();
+    colourChoice->addItem(tr("Alternating"));
+    colourChoice->addItem(tr("Flat Lighting"));
+    colourChoice->addItem(tr("Smooth Lighting"));
+    colourChoice->addItem(tr("Textured"));
+    rowSevenLayout->addWidget(colourChoice);
+    windowLayout->addLayout(rowSevenLayout);
 }
 
 GLPolygonWindow::~GLPolygonWindow()

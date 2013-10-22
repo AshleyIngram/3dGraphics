@@ -10,7 +10,7 @@ int main(int argc, char *argv[])
 {
     QApplication app(argc, argv);
     GLSphere* polygon = new GLSphere();
-    polygon->mode = GL_TRIANGLES;
+    polygon->mode = GL_QUADS;
     polygon->colourMode = 0;
     GLPolygonWindow* window = new GLPolygonWindow(NULL, polygon);
     GLPolygonController* controller = new GLPolygonController(window, polygon);

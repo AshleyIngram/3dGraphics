@@ -20,7 +20,7 @@ void GLPolygonWidget::initializeGL()
 
 // Resize the viewport
 void GLPolygonWidget::resizeGL(int w, int h)
-{
+{       
     glViewport(0, 0, w, h);
 }
 

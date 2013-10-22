@@ -26,6 +26,8 @@ GLPolygonController::GLPolygonController(GLPolygonWindow* window, GLPolygon* pol
     connect(window->shapeChoice, SIGNAL(currentIndexChanged(int)), this, SLOT(shapeChange(int)));
     
     connect(window->modeChoice, SIGNAL(currentIndexChanged(int)), this, SLOT(modeChange(int)));
+    
+    connect(window->colourChoice, SIGNAL(currentIndexChanged(int)), this, SLOT(colourChange(int)));
 }
 
 void GLPolygonController::xChanged(int newValue)
@@ -49,6 +51,12 @@ void GLPolygonController::zChanged(int newValue)
 void GLPolygonController::modeChange(int mode)
 {
     this->polygon->mode = modeFromInt(mode);
+    window->resetInterface();
+}
+
+void GLPolygonController::colourChange(int mode)
+{
+    this->polygon->colourMode = mode;
     window->resetInterface();
 }
 
