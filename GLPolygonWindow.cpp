@@ -58,11 +58,6 @@ GLPolygonWindow::GLPolygonWindow(QWidget* parent, GLPolygon* polygon)
     // Fifth Row is shape choice
     QBoxLayout* rowFiveLayout = new QBoxLayout(QBoxLayout::LeftToRight);
     shapeChoice = new QComboBox();
-    shapeChoice->addItem(tr("Tetrahedron"));
-    shapeChoice->addItem(tr("Cube"));
-    shapeChoice->addItem(tr("Octahedron"));
-    shapeChoice->addItem(tr("Dodecahedron"));
-    shapeChoice->addItem(tr("Icosahedron"));
     shapeChoice->addItem(tr("Sphere"));
     rowFiveLayout->addWidget(shapeChoice);
     windowLayout->addLayout(rowFiveLayout);
@@ -70,19 +65,11 @@ GLPolygonWindow::GLPolygonWindow(QWidget* parent, GLPolygon* polygon)
     // Sixth row is mode choice
     QBoxLayout* rowSixLayout = new QBoxLayout(QBoxLayout::LeftToRight);
     modeChoice = new QComboBox();
-    modeChoice->addItem(tr("Triangles"));
+    modeChoice->addItem(tr("Quads"));
     modeChoice->addItem(tr("Lines"));
     modeChoice->addItem(tr("Points"));
     rowSixLayout->addWidget(modeChoice);
     windowLayout->addLayout(rowSixLayout);
-    
-    // Seventh row is how we display colour
-    QBoxLayout* rowSevenLayout = new QBoxLayout(QBoxLayout::LeftToRight);
-    colourChoice = new QComboBox();
-    colourChoice->addItem(tr("Alternating Colours"));
-    colourChoice->addItem(tr("Solid Colour"));
-    rowSevenLayout->addWidget(colourChoice);
-    windowLayout->addLayout(rowSevenLayout);
 }
 
 GLPolygonWindow::~GLPolygonWindow()

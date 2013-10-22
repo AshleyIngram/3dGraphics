@@ -31,7 +31,7 @@ void GLSphere::render()
         double sin2 = sin(lat2);
         double cos2 = cos(lat2);
 
-        glBegin(GL_QUADS);
+        glBegin(mode);
         for(int j = 0; j <= longs; j++) 
         {
             // double lng = 2 * M_PI * (double) (j - 1) / longs;

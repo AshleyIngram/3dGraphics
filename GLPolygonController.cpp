@@ -26,8 +26,6 @@ GLPolygonController::GLPolygonController(GLPolygonWindow* window, GLPolygon* pol
     connect(window->shapeChoice, SIGNAL(currentIndexChanged(int)), this, SLOT(shapeChange(int)));
     
     connect(window->modeChoice, SIGNAL(currentIndexChanged(int)), this, SLOT(modeChange(int)));
-    
-    connect(window->colourChoice, SIGNAL(currentIndexChanged(int)), this, SLOT(colourChange(int)));
 }
 
 void GLPolygonController::xChanged(int newValue)
@@ -61,27 +59,12 @@ void GLPolygonController::shapeChange(int shape)
     switch(shape)
     {
         case (0):
-            newPolygon = new GLTetra();
-            break;
-        case (1):
-            newPolygon = new GLCube();
-            break;
-        case (2):
-            newPolygon = new GLOcta();
-            break;
-        case(3):
-            newPolygon = new GLDodec();
-            break;
-        case(4):
-            newPolygon = new GLIcosa();
-            break;
-        case(5):
             newPolygon = new GLSphere();
             break;
     } 
     
     newPolygon->mode = this->polygon->mode;
-    newPolygon->colourMode = this->polygon->colourMode;
+    newPolygon->colourMode = 0;
     newPolygon->xRotate = this->polygon->xRotate;
     newPolygon->yRotate = this->polygon->yRotate;
     newPolygon->zRotate = this->polygon->zRotate;
@@ -93,17 +76,10 @@ void GLPolygonController::shapeChange(int shape)
     window->resetInterface();
 }
 
-void GLPolygonController::colourChange(int colourMode)
-{
-    // TODO: This is gross. It should be a constant or something, rather than just delegating across
-    polygon->colourMode = colourMode;
-    window->resetInterface();
-}
-
 GLenum GLPolygonController::modeFromInt(int val)
 {
     if (val == 0)
-        return GL_TRIANGLES;
+        return GL_QUADS;
     if (val == 1)
         return GL_LINES;
     if (val == 2)
