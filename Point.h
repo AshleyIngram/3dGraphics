@@ -2,6 +2,8 @@
 #define _POINT_H 1
 
 #include <ostream>
+class Vector;
+
 class Point
 {
     public:
@@ -14,6 +16,8 @@ class Point
         
         float* toArray();
         friend std::ostream& operator<<(std::ostream& out, const Point x);
+        operator Vector ();
+        
      private:
         float _returnVal[3];
 };

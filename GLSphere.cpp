@@ -1,34 +1,18 @@
-#include <vector>
 #include <math.h>
 #include "GLSphere.h"
 #include <iostream>
 
-GLSphere::GLSphere()
+GLSphere::GLSphere() : surfaceNormal(0, 0, 0)
 {
     this->textureImg = NULL;
 }
 
-std::vector<float> getTextureCoords(Point p)
-{
-    float sumSquare = (p.x * p.x) + (p.y * p.y) + (p.z * p.z);
-    float length = sqrt(sumSquare);
-    Point n = Point(p.x / length, p.y / length, p.z / length);
-
-    std::vector<float> rp = std::vector<float>();
-    float t = atan2(n.x, n.z) / (2.0 * M_PI) + 0.5;
-    float u = asin(n.y) / M_PI + 0.5;
-    rp.push_back(t);
-    rp.push_back(u);
-    
-    return rp; 
-}
-
 void GLSphere::render()
 {
-    int lats = 20;
-    int longs = 20;
+    int lats = 100;
+    int longs = 100;
     float r = 0.5;
-    
+    // glEnable(GL_NORMALIZE);
     glMatrixMode(GL_MODELVIEW);
     glPushMatrix();
     glLoadIdentity();
@@ -65,37 +49,78 @@ void GLSphere::render()
                 glColor3f(0.0, 0.0, 1.0);
             }
             
+            // Generate Points
             Point p1 = Point(r * cos1 * cos(lng1), r * cos1 * sin(lng1), r * sin1);
-            glTexCoord2fv(&getTextureCoords(p1)[0]);
+            Point p2 = Point(r * cos1 * cos(lng2), r * cos1 * sin(lng2), r * sin1);
+            Point p3 = Point(r * cos2 * cos(lng2), r * cos2 * sin(lng2), r * sin2);      
+            Point p4 = Point(r * cos2 * cos(lng1), r * cos2 * sin(lng1), r * sin2);      
+            
+            // Store textures
+            std::vector<std::vector<float> > textures = std::vector<std::vector<float> >();
+            textures.push_back(getTextureCoords(p1));
+            textures.push_back(getTextureCoords(p2));
+            textures.push_back(getTextureCoords(p3));
+            textures.push_back(getTextureCoords(p4));
+                        
+            // Rotate sphere
             p1 = rotate(p1);
-            glNormal3fv(p1.toArray());
+            p2 = rotate(p2);
+            p3 = rotate(p3);
+            p4 = rotate(p4);
+                       
+            // Calculate the surface norm (if necessary)
+            if (this->colourMode == 1)
+            {
+                surfaceNormal = calculateSurfaceNormal(p3, p2, p1);
+            }
+            
+            // Render first point
+            glTexCoord2fv(&textures[0][0]);
+            setNormal(p1);
             glVertex3fv(p1.toArray());
             
-            Point p2 = Point(r * cos1 * cos(lng2), r * cos1 * sin(lng2), r * sin1);
-            
-            glTexCoord2fv(&getTextureCoords(p2)[0]);
-            p2 = rotate(p2);
-            glNormal3fv(p2.toArray());
+            // Second point
+            glTexCoord2fv(&textures[1][0]);
+            setNormal(p2);
             glVertex3fv(p2.toArray());
             
-            Point p3 = Point(r * cos2 * cos(lng2), r * cos2 * sin(lng2), r * sin2);
-            
-            glTexCoord2fv(&getTextureCoords(p3)[0]);
-            p3 = rotate(p3);
-            glNormal3fv(p3.toArray());
+            // Third point
+            glTexCoord2fv(&textures[2][0]);
+            setNormal(p3);
             glVertex3fv(p3.toArray());
             
-            Point p4 = Point(r * cos2 * cos(lng1), r * cos2 * sin(lng1), r * sin2);
-            
-            glTexCoord2fv(&getTextureCoords(p4)[0]);
-            p4 = rotate(p4);
-            glNormal3fv(p4.toArray());
+            // Fourth point
+            glTexCoord2fv(&textures[3][0]);
+            setNormal(p4);
             glVertex3fv(p4.toArray());
        }
        glEnd();
    }
     
    glPopMatrix();   
+}
+
+Vector GLSphere::calculateSurfaceNormal(Point p1, Point p2, Point p3)
+{
+    // Use surface normals
+    Vector u = Vector(p1, p2);          
+    Vector v = Vector(p2, p3);
+
+    Vector n = u * v;
+    return n.normalize();
+}
+
+void GLSphere::setNormal(Point p)
+{
+    if (this->colourMode == 1)
+    {
+        glNormal3fv(surfaceNormal.toArray());
+    }
+    else
+    {
+        Vector v = (Vector)p;
+        glNormal3fv(v.normalize().toArray());
+    }
 }
 
 void GLSphere::light()
@@ -117,8 +142,8 @@ void GLSphere::light()
         glEnable(GL_LIGHT0);
         
         static const GLfloat black[4] = { 0.0, 0.0, 0.0, 1.0 };
-        static const GLfloat white[4] = { 2.0, 2.0, 2.0, 1.0 };
-        static const GLfloat grey[4] = { 0.9, 0.9, 0.9, 1.0 };
+        static const GLfloat white[4] = { 1.0, 1.0, 1.0, 1.0 };
+        static const GLfloat grey[4] = { 0.3, 0.3, 0.3, 1.0 };
         static const float lightPosition[] = { -100, 100, 0, 1 };
         glLightfv(GL_LIGHT0, GL_POSITION, lightPosition);
         glLightfv(GL_LIGHT0, GL_AMBIENT, grey);
@@ -169,6 +194,20 @@ void GLSphere::texture()
         // Disable any previous texturing
         glDisable(GL_TEXTURE_2D);
     }
+}
+
+std::vector<float> GLSphere::getTextureCoords(Point p)
+{
+    Vector v = (Vector)p;
+    Vector n = v.normalize();
+
+    std::vector<float> rp = std::vector<float>();
+    float t = atan2(n.x, n.z) / (2.0 * M_PI) + 0.5;
+    float u = asin(n.y) / M_PI + 0.5;
+    rp.push_back(t);
+    rp.push_back(u);
+    
+    return rp; 
 }
 
 GLSphere::~GLSphere()

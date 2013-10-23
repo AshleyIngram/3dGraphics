@@ -1,4 +1,5 @@
 #include "Point.h"
+#include "Vector.h"
 
 Point::Point(float x, float y, float z)
 {
@@ -28,4 +29,9 @@ std::ostream& operator<<(std::ostream& out, Point x)
     out << "[" << x.x << ", " << x.y << ", " << x.z << "]";
     
     return out;
+}
+
+Point::operator Vector()
+{
+    return Vector(this->x, this->y, this->z);
 }
