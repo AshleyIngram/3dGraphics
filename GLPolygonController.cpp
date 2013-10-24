@@ -5,6 +5,7 @@
 #include "GLDodec.h"
 #include "GLIcosa.h"
 #include "GLSphere.h"
+#include "GLTorus.h"
 #include <iostream>
 using namespace std;
 
@@ -69,6 +70,8 @@ void GLPolygonController::shapeChange(int shape)
         case (0):
             newPolygon = new GLSphere();
             break;
+        case (1):
+            newPolygon = new GLTorus();
     } 
     
     newPolygon->mode = this->polygon->mode;

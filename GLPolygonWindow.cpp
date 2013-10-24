@@ -59,6 +59,7 @@ GLPolygonWindow::GLPolygonWindow(QWidget* parent, GLPolygon* polygon)
     QBoxLayout* rowFiveLayout = new QBoxLayout(QBoxLayout::LeftToRight);
     shapeChoice = new QComboBox();
     shapeChoice->addItem(tr("Sphere"));
+    shapeChoice->addItem(tr("Torus"));
     rowFiveLayout->addWidget(shapeChoice);
     windowLayout->addLayout(rowFiveLayout);
     
