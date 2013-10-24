@@ -75,7 +75,7 @@ void GLPolygonController::shapeChange(int shape)
     } 
     
     newPolygon->mode = this->polygon->mode;
-    newPolygon->colourMode = 0;
+    newPolygon->colourMode = this->polygon->colourMode;
     newPolygon->xRotate = this->polygon->xRotate;
     newPolygon->yRotate = this->polygon->yRotate;
     newPolygon->zRotate = this->polygon->zRotate;
