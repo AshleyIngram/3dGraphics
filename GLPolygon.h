@@ -4,6 +4,7 @@
 #include <vector>
 #include <QGLWidget>
 #include "Point.h"
+#include "Vector.h"
 
 using namespace std;
 
@@ -30,5 +31,7 @@ class GLPolygon
         void renderPoints();
         void interpolateColour(int val, int length);
         Point rotate(Point p);
+        void light();
+        Vector calculateSurfaceNormal(Point p1, Point p2, Point p3);
 };
 #endif

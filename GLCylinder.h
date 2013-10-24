@@ -1,26 +1,22 @@
-#ifndef _GL_SPHERE_POLYGON_H
-#define _GL_SPHERE_POLYGON_H 1
+#ifndef _GL_CYLINDER_POLYGON_H
+#define _GL_CYLINDER_POLYGON_H 1
 
 #include "GLPolygon.h"
 #include "Vector.h"
 #include <QImage>
 #include <vector>
 
-class GLSphere : public GLPolygon
+class GLCylinder : public GLPolygon
 {
     public:               
-        GLSphere();
-        ~GLSphere();
+        GLCylinder();
+        ~GLCylinder();
         
         void render();
         
     protected:
         void texture();
+        Vector calculateSurfaceNormal(Point p1, Point p2, Point p3);
         std::vector<float> getTextureCoords(Point p);
-        
-    private:
-        QImage* textureImg;
-        void setNormal(Point p);
-        Vector surfaceNormal;
 };
 #endif

@@ -100,16 +100,6 @@ void GLSphere::render()
    glPopMatrix();   
 }
 
-Vector GLSphere::calculateSurfaceNormal(Point p1, Point p2, Point p3)
-{
-    // Use surface normals
-    Vector u = Vector(p1, p2);          
-    Vector v = Vector(p2, p3);
-
-    Vector n = u * v;
-    return n.normalize();
-}
-
 void GLSphere::setNormal(Point p)
 {
     if (this->colourMode == 1)
@@ -120,40 +110,6 @@ void GLSphere::setNormal(Point p)
     {
         Vector v = (Vector)p;
         glNormal3fv(v.normalize().toArray());
-    }
-}
-
-void GLSphere::light()
-{
-    // 0 is alternating colour mode
-    if (colourMode != 0)
-    { 
-        glEnable(GL_LIGHTING);
-        
-        if (colourMode == 1)
-        {
-            glShadeModel(GL_FLAT);
-        }
-        else if (colourMode == 2)
-        {
-            glShadeModel(GL_SMOOTH);
-        }
-        
-        glEnable(GL_LIGHT0);
-        
-        static const GLfloat black[4] = { 0.0, 0.0, 0.0, 1.0 };
-        static const GLfloat white[4] = { 1.0, 1.0, 1.0, 1.0 };
-        static const GLfloat grey[4] = { 0.3, 0.3, 0.3, 1.0 };
-        static const float lightPosition[] = { -100, 100, 0, 1 };
-        glLightfv(GL_LIGHT0, GL_POSITION, lightPosition);
-        glLightfv(GL_LIGHT0, GL_AMBIENT, grey);
-        glLightfv(GL_LIGHT0, GL_DIFFUSE, white);
-        glLightfv(GL_LIGHT0, GL_SPECULAR, black);
-    }
-    else
-    {
-        // Disable in case lighting was already enabled
-        glDisable(GL_LIGHTING);
     }
 }
 
