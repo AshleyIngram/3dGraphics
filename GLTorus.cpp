@@ -11,7 +11,6 @@ Point calculatePoint(double s, double t, int sides, int rings)
 {
     const float PI2 = M_PI * 2;
     
-    // TODO: normals are these minus constants?
     double x = (0.1 * cos(s * PI2 / (double)sides) + 0.5) * cos(t * PI2 / (double)rings);
     double y = (0.1 * cos(s * PI2 / (double)sides) + 0.5) * sin(t * PI2 / (double)rings);
     double z = sin(s * PI2 / sides) * 0.1;
@@ -30,39 +29,37 @@ void GLTorus::render()
 
     int sides = 100;
     int rings = 100;
-    const float PI2 = M_PI * 2;
     
-     for (int j = 0; j < rings; j++)
-     {
-         
-        glBegin(mode);
-        for (int i = 0; i < sides; i++)
-         {
-               Point p1 = calculatePoint(i, j, sides, rings);
-                Point p2 = calculatePoint(i, j + 1, sides, rings);
-                Point p3 = calculatePoint(i + 1, j + 1, sides, rings);
-                Point p4 = calculatePoint(i + 1, j, sides, rings);
-                
-                p1 = rotate(p1);
-                p2 = rotate(p2);
-                p3 = rotate(p3);
-                p4 = rotate(p4);
-                
-                setNormal(p1);
-                glVertex3fv(p1.toArray());
-                
-                setNormal(p2);
-                glVertex3fv(p2.toArray());
-                
-                setNormal(p3);
-                glVertex3fv(p3.toArray());
-                
-                setNormal(p4);
-                glVertex3fv(p4.toArray());
-        }
-        
-        glEnd();
-    }
+    for (int j = 0; j < rings; j++)
+    { 
+       glBegin(mode);
+       for (int i = 0; i < sides; i++)
+       {
+           Point p1 = calculatePoint(i, j, sides, rings);
+           Point p2 = calculatePoint(i, j + 1, sides, rings);
+           Point p3 = calculatePoint(i + 1, j + 1, sides, rings);
+           Point p4 = calculatePoint(i + 1, j, sides, rings);
+               
+           p1 = rotate(p1);
+           p2 = rotate(p2);
+           p3 = rotate(p3);
+           p4 = rotate(p4);
+           
+           setNormal(p1);
+           glVertex3fv(p1.toArray());
+           
+           setNormal(p2);
+           glVertex3fv(p2.toArray());
+           
+           setNormal(p3);
+           glVertex3fv(p3.toArray());
+           
+           setNormal(p4);
+           glVertex3fv(p4.toArray());
+       }
+       
+       glEnd();
+    } 
     glPopMatrix();
 }
 
@@ -114,16 +111,6 @@ void GLTorus::light()
         // Disable in case lighting was already enabled
         glDisable(GL_LIGHTING);
     }
-}
-
-
-void GLTorus::texture()
-{
-}
-
-std::vector<float> GLTorus::getTextureCoords(Point p)
-{
-    return std::vector<float>();
 }
 
 GLTorus::~GLTorus()

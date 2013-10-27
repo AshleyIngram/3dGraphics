@@ -6,6 +6,7 @@
 #include "GLIcosa.h"
 #include "GLSphere.h"
 #include "GLCylinder.h"
+#include "GLCone.h"
 #include "GLTorus.h"
 #include <iostream>
 using namespace std;
@@ -74,7 +75,10 @@ void GLPolygonController::shapeChange(int shape)
         case (1):
             newPolygon = new GLCylinder();
             break;
-        case(2):
+        case (2):
+            newPolygon = new GLCone();
+            break;
+        case (3):
             newPolygon = new GLTorus();
             break;
     } 
