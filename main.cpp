@@ -2,8 +2,6 @@
 #include <QVBoxLayout>
 #include "GLPolygonWindow.h"
 #include "GLPolygonController.h"
-#include "GLCube.h"
-#include "GLTetra.h"
 #include "GLSphere.h"
 
 int main(int argc, char *argv[]) 
