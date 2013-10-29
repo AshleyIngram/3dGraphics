@@ -74,10 +74,6 @@ void GLCone::render()
         
         Point b2 = Point(x1, y1, -(height / 2));
         Point b3 = Point(x2, y2, -(height / 2));
-        
-        Vector n1 = ((Vector)bottomStart).normalize();
-        Vector n2 = ((Vector)b2).normalize();
-        Vector n3 = ((Vector)b3).normalize();
     
         b2 = rotate(b2);
         b3 = rotate(b3);

@@ -45,6 +45,20 @@ void GLTorus::render()
            p3 = rotate(p3);
            p4 = rotate(p4);
            
+           if (i % 3 == 0)
+           {
+               glColor3f(1.0, 0.0, 0.0);
+           }
+           else if (i % 3 == 1)
+           {
+               glColor3f(0.0, 1.0, 0.0);
+           }
+           if (i % 3 == 2)
+           {
+               glColor3f(0.0, 0.0, 1.0);
+           }
+           
+           
            setNormal(p1);
            glVertex3fv(p1.toArray());
            
