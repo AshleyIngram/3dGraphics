@@ -10,12 +10,12 @@ class Scene
 	public:
 		Scene();
 
-		void addShape(std::string key, Shape shape);
+		void addShape(std::string key, Shape* shape);
 		void removeShape(std::string key);
 		void render();
 
 	protected:
-		std::map<std::string, Shape> shapes;
+		std::map<std::string, Shape*> shapes;
 };
 
 #endif

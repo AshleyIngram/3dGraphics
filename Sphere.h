@@ -12,7 +12,6 @@ class Sphere : public Shape
         Sphere(Point origin);
         Sphere(float radius);
         Sphere(float radius, Point origin);
-        ~Sphere();
 
     protected:
     	float radius;

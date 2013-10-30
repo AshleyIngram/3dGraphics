@@ -22,7 +22,7 @@ Sphere::Sphere(float radius) : Shape()
 
 Sphere::Sphere(float radius, Point origin) : Shape(origin)
 {
-    this->radius = 0.5;
+    this->radius = radius;
     this->setGeometry();
 }
 

@@ -4,14 +4,26 @@
 #include "GLPolygonWindow.h"
 #include <iostream>
 #include "Cone.h"
+#include "Sphere.h"
+#include "Cylinder.h"
 
 GLPolygonWidget::GLPolygonWidget(QWidget* parent, Scene* scene) 
 {
     this->parent = parent;
     this->scene = scene;
 
-    Shape s = Cone();
+    Shape* s = new Cone(0.2, 0.2, Point(-0.5, 0.5, 0));
     this->scene->addShape("Cone", s);
+    s->rotateX(50);
+
+    Shape* s2 = new Sphere(0.2, Point(0.5, 0.5, 0.5));
+    this->scene->addShape("Sphere", s2);
+
+    Shape* c = new Cylinder(Point(-0.5, -0.5, -0.5));
+    this->scene->addShape("Cylinder", c);
+    c->rotateX(40);
+    c->rotateY(100);
+    c->rotateZ(80);
 }
 
 // Initial OpenGL setup

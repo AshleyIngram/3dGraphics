@@ -33,6 +33,7 @@ Cone::Cone(float radius, float height) : Shape()
 void Cone::setGeometry()
 {
     int segments = 100;
+    float r = this->radius;
 
     // Top point
     Point top = Point(0, 0, height / 2);
@@ -41,10 +42,10 @@ void Cone::setGeometry()
     {
         float angle = (M_PI * 2 * i) / segments;
         float nextAngle = (M_PI * 2 * (i + 1)) / segments;
-        float x1 = 0.5 * sin(angle);
-        float y1 = 0.5 * cos(angle);
-        float x2 = 0.5 * sin(nextAngle);
-        float y2 = 0.5 * cos(nextAngle);
+        float x1 = sin(angle) * r;
+        float y1 = cos(angle) * r;
+        float x2 = sin(nextAngle) * r;
+        float y2 = cos(nextAngle) * r;
         
         Point p1 = Point(x1, y1, -(height / 2));
         Point p2 = Point(x2, y2, -(height / 2));
@@ -60,10 +61,10 @@ void Cone::setGeometry()
         float angle =  M_PI * i * 2.0 / segments;
         float nextAngle = M_PI * (i + 1) * 2 / segments;
     
-        float x1 = sin(angle) * 0.5;
-        float y1 = cos(angle) * 0.5;
-        float x2 = sin(nextAngle) * 0.5;
-        float y2 = cos(nextAngle) * 0.5;
+        float x1 = sin(angle) * r;
+        float y1 = cos(angle) * r;
+        float x2 = sin(nextAngle) * r;
+        float y2 = cos(nextAngle) * r;
         
         Point b2 = Point(x1, y1, -(height / 2));
         Point b3 = Point(x2, y2, -(height / 2));
