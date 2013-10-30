@@ -1,5 +1,8 @@
 #ifndef _QUAD_H
 #define _QUAD_H 1
+
+#include "Point.h"
+
 class Quad
 {
 	public:
