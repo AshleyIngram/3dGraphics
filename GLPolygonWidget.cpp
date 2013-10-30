@@ -6,6 +6,7 @@
 #include "Cone.h"
 #include "Sphere.h"
 #include "Cylinder.h"
+#include "ColouredSurface.h"
 
 GLPolygonWidget::GLPolygonWidget(QWidget* parent, Scene* scene) 
 {
@@ -14,10 +15,12 @@ GLPolygonWidget::GLPolygonWidget(QWidget* parent, Scene* scene)
 
     Shape* s = new Cone(0.2, 0.2, Point(-0.5, 0.5, 0));
     this->scene->addShape("Cone", s);
+    s->setSurface(new ColouredSurface(1, 0, 0));
     s->rotateX(50);
 
     Shape* s2 = new Sphere(0.2, Point(0.5, 0.5, 0.5));
     this->scene->addShape("Sphere", s2);
+    s2->setSurface(new ColouredSurface(0, 1, 0));
 
     Shape* c = new Cylinder(Point(-0.5, -0.5, -0.5));
     this->scene->addShape("Cylinder", c);
