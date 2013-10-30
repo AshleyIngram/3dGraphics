@@ -33,9 +33,10 @@ void Shape::render()
 	for (uint i = 0; i < this->triangles.size()*3; i+=3)
 	{
 		Triangle tri = this->triangles[i/3];
-		this->renderPoint(tri.p1, i);
-		this->renderPoint(tri.p2, i+1);
-		this->renderPoint(tri.p3, i+2);
+
+		this->renderPoint(tri.p1 + origin, i);
+		this->renderPoint(tri.p2 + origin, i+1);
+		this->renderPoint(tri.p3 + origin, i+2);
 	}
 	glEnd();
 
@@ -47,10 +48,11 @@ void Shape::render()
 
 		// offset by the points we've already rendered
 		int index = i + (this->triangles.size() * 3);
-		this->renderPoint(quad.p1, index);
-		this->renderPoint(quad.p2, index+1);
-		this->renderPoint(quad.p3, index+2);
-		this->renderPoint(quad.p4, index+3);		
+
+		this->renderPoint(quad.p1 + origin, index);
+		this->renderPoint(quad.p2 + origin, index+1);
+		this->renderPoint(quad.p3 + origin, index+2);
+		this->renderPoint(quad.p4 + origin, index+3);		
 	}
 	glEnd();
 }

@@ -38,6 +38,16 @@ std::ostream& operator<<(std::ostream& out, Point x)
     return out;
 }
 
+Point Point::operator +(Point p)
+{
+    Point rp = Point();
+    rp.x = this->x + p.x;
+    rp.y = this->y + p.y;
+    rp.z = this->z + p.z;
+
+    return rp;
+}
+
 Point::operator Vector()
 {
     return Vector(this->x, this->y, this->z);

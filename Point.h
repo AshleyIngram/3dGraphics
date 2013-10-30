@@ -9,8 +9,6 @@ class Point
     public:
         Point(float x, float y, float z);
         Point(float input[3]);
-
-        // Just for the compiler...
         Point();
     
         float x;
@@ -19,6 +17,7 @@ class Point
         
         float* toArray();
         friend std::ostream& operator<<(std::ostream& out, const Point x);
+        Point operator+(Point p); 
         operator Vector ();
         
      private:
