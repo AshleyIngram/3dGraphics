@@ -7,8 +7,6 @@
 #include "Triangle.h"
 #include "Quad.h"
 
-using namespace std;
-
 class Shape
 {
 	public:
@@ -18,24 +16,28 @@ class Shape
 		void render();
 		void rotate();		
 		void setRotation(float x, float y, float z);
+		void rotateX(float x);
+		void rotateY(float y);
+		void rotateZ(float z);
+		float getZRotation();
+		float getXRotation();
+		float getYRotation();
 		void setOrigin(float x, float y, float z);
 		void setOrigin(Point p);
-		void setSurface(Surface surface);
+		void setSurface(Surface* surface);
 
 	protected:
 		Point rotate(Point p);
-		void render(Point p, int i);
+		void renderPoint(Point p, int i);
 
-		vector<Triangle> triangles;
-		vector<Quad> quads;
+		std::vector<Triangle> triangles;
+		std::vector<Quad> quads;
 		Point origin;
-
-		// TODO: What is a surface?
-		Surface surface;
+		Surface* surface;
 		
 	private:
 		float xRotate;
 		float yRotate;
 		float zRotate;
-};
+}; 
 #endif

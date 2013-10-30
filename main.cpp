@@ -1,17 +1,17 @@
 #include <QApplication>
 #include <QVBoxLayout>
 #include "GLPolygonWindow.h"
-#include "GLPolygonController.h"
-#include "GLSphere.h"
+#include "ApplicationController.h"
+#include "Scene.h"
 
 int main(int argc, char *argv[]) 
 {
     QApplication app(argc, argv);
-    GLSphere* polygon = new GLSphere();
-    polygon->mode = GL_QUADS;
-    polygon->colourMode = 0;
-    GLPolygonWindow* window = new GLPolygonWindow(NULL, polygon);
-    GLPolygonController* controller = new GLPolygonController(window, polygon);
+
+    Scene* scene = new Scene();
+
+    GLPolygonWindow* window = new GLPolygonWindow(NULL, scene);
+    ApplicationController* controller = new ApplicationController(window, scene);
     
     window->resize(512, 612);
     window->show();

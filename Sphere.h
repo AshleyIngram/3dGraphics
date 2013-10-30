@@ -3,27 +3,20 @@
 
 #include "Shape.h"
 #include "Vector.h"
-#include <QImage>
 #include <vector>
 
-public class Sphere : Shape
+class Sphere : public Shape
 {
     public:               
         Sphere();
         Sphere(Point origin);
+        Sphere(float radius);
+        Sphere(float radius, Point origin);
         ~Sphere();
-        
-		void render();
-        
-    protected:
-        void texture();
-        std::vector<float> getTextureCoords(Point p);
-        
-    private:
-        QImage* textureImg;
-        void setNormal(Point p);
-        Vector surfaceNormal;
 
+    protected:
+    	float radius;
+    	void setGeometry();
 };
 
 #endif

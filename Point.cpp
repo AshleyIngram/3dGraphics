@@ -8,6 +8,13 @@ Point::Point(float x, float y, float z)
     this->z = z;
 }
 
+Point::Point()
+{
+    this->x = 0;
+    this->y = 0;
+    this->z = 0;
+}
+
 Point::Point(float input[3])
 {
     this->x = input[0];

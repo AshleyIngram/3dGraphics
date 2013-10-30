@@ -7,31 +7,23 @@
 #include <QDial>
 #include <QComboBox>
 #include <QBoxLayout>
-#include "GLPolygon.h"
+#include <QEvent>
 #include "GLPolygonWidget.h"
+#include "Scene.h"
 
 class GLPolygonWindow : public QWidget 
 {
     Q_OBJECT
 
     public:
-        GLPolygon* polygon;
+        Scene* scene;
         QMenuBar* menu;
         QMenu* fileMenu;
         QAction* actionQuit;
         QBoxLayout* windowLayout;
         GLPolygonWidget* polygonWidget;
-        QSlider* xSlider;
-        QSlider* ySlider;
-        QSlider* zSlider;
-        QDial* angleDial;
-        QComboBox* shapeChoice;
-        QComboBox* modeChoice;
-        QComboBox* colourChoice;
         
-        void changePolygon(GLPolygon* polygon);
-        
-        GLPolygonWindow(QWidget* parent, GLPolygon* polygon);
+        GLPolygonWindow(QWidget* parent, Scene* scene);
         ~GLPolygonWindow();
         
         void resetInterface();
