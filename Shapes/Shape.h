@@ -7,6 +7,8 @@
 #include "Triangle.h"
 #include "Quad.h"
 
+class Bone;
+
 class Shape
 {
 	public:
@@ -25,6 +27,9 @@ class Shape
 		void setOrigin(float x, float y, float z);
 		void setOrigin(Point p);
 		void setSurface(Surface* surface);
+		Point getOrigin();
+
+		operator Bone ();
 
 	protected:
 		Point rotate(Point p);

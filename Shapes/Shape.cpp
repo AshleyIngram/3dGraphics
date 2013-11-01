@@ -1,6 +1,7 @@
 #include "Shape.h"
 #include "Matrix.h"
 #include "AlternatingSurface.h"
+#include "Bone.h"
 #include <iostream>
 
 using namespace std;
@@ -28,6 +29,10 @@ Shape::Shape(Point origin)
 
 void Shape::render()
 {
+	glMatrixMode(GL_MODELVIEW);
+	glPushMatrix();
+	glLoadIdentity();
+
 	// First triangles...
 	glBegin(GL_TRIANGLES);
 	for (uint i = 0; i < this->triangles.size()*3; i+=3)
@@ -55,6 +60,8 @@ void Shape::render()
 		this->renderPoint(quad.p4 + origin, index+3);		
 	}
 	glEnd();
+
+	glPopMatrix();
 }
 
 void Shape::renderPoint(Point p, int i)
@@ -148,8 +155,18 @@ void Shape::setOrigin(Point p)
 {
 	this->origin = p;
 }
+
+Point Shape::getOrigin()
+{
+	return this->origin;
+}
 		
 void Shape::setSurface(Surface* surface)
 {
 	this->surface = surface;
+}
+
+Shape::operator Bone()
+{
+	return Bone(this);
 }

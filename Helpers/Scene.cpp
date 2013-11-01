@@ -3,26 +3,26 @@ using namespace std;
 
 Scene::Scene()
 {
-	this->shapes = map<string, Shape*>();
+	this->bones = map<string, Bone*>();
 }
 
-void Scene::addShape(string key, Shape* shape)
+void Scene::addShape(string key, Bone* shape)
 {
-	shapes[key] = shape;
+	bones[key] = shape;
 }
 
 void Scene::removeShape(string key)
 {
-	map<string, Shape*>::iterator it;
-	it = shapes.find(key);
-	shapes.erase(it);
+	map<string, Bone*>::iterator it;
+	it = bones.find(key);
+	bones.erase(it);
 }
 
 void Scene::render()
 {
-	typedef map<string, Shape*>::iterator mapi;
+	typedef map<string, Bone*>::iterator mapi;
 
-	for(mapi i = shapes.begin(); i != shapes.end(); i++) 
+	for(mapi i = bones.begin(); i != bones.end(); i++) 
 	{
 		i->second->render();
 	}
