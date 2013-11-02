@@ -7,6 +7,9 @@ using namespace std;
 Bone::Bone(Shape* shape)
 {
 	this->shape = shape;
+	this->xRotate = 0;
+	this->yRotate = 0;
+	this->zRotate = 0;
 }
 
 void Bone::addChild(string key, Bone* bone)
@@ -33,15 +36,9 @@ Point Bone::getOrigin()
 
 void Bone::setRotation(float x, float y, float z)
 {
-	shape->setRotation(x, y, z);
-
-	map<string, Bone*>::iterator i;
-	for (i = children.begin(); i != children.end(); i++)
-	{
-		Point oldOrigin = i->second->getOrigin();
-		Point newOrigin = rotatePoint(oldOrigin, x, y, z);
-		i->second->setOrigin(Point(newOrigin.x, newOrigin.y, 0));
-	}
+	this->xRotate = x;
+	this->yRotate = y;
+	this->zRotate = z;
 }
 
 Point Bone::rotatePoint(Point p, float x, float y, float z)
@@ -54,6 +51,15 @@ Point Bone::rotatePoint(Point p, float x, float y, float z)
 
 void Bone::render()
 {
+	glPushMatrix();
+	
+	Point origin = this->getOrigin();
+
+	glTranslatef(origin.x, origin.y, origin.z);	
+	glRotatef(xRotate, 1, 0, 0);
+	glRotatef(yRotate, 0, 1, 0);
+	glRotatef(zRotate, 0, 0, 1);
+
 	// First render our shape
 	this->shape->render();
 
@@ -63,4 +69,5 @@ void Bone::render()
 	{
 		i->second->render();
 	}
+	glPopMatrix();
 }

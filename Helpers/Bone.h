@@ -21,5 +21,8 @@ class Bone
         Shape* shape;
         std::map<std::string, Bone*> children;
         Point rotatePoint(Point p, float x, float y, float z);
+        float xRotate;
+        float yRotate;
+        float zRotate;
 };
 #endif

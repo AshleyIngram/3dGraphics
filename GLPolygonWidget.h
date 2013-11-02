@@ -11,6 +11,8 @@ class GLPolygonWidget : public QGLWidget
     public:
         GLPolygonWidget(QWidget* parent, Scene* scene);
         void render();
+        void mouseClickEvent(QMouseEvent* e);
+        void mouseMoveEvent(QMouseEvent* e);
         
     protected:
         void initializeGL();
@@ -20,5 +22,7 @@ class GLPolygonWidget : public QGLWidget
     private:
         QWidget* parent;
         Scene* scene;
+        Point rotateStartPoint;
+        Point rotateBy;
 };
 #endif
