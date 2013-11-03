@@ -24,5 +24,6 @@ class GLPolygonWidget : public QGLWidget
         Scene* scene;
         Point rotateStartPoint;
         Point rotateBy;
+        TexturedSurface* face;
 };
 #endif

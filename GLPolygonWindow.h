@@ -8,6 +8,7 @@
 #include <QComboBox>
 #include <QBoxLayout>
 #include <QEvent>
+#include <QCheckBox>
 #include "GLPolygonWidget.h"
 #include "Scene.h"
 
@@ -22,6 +23,7 @@ class GLPolygonWindow : public QWidget
         QAction* actionQuit;
         QBoxLayout* windowLayout;
         GLPolygonWidget* polygonWidget;
+        QCheckBox* isAnimating;
         
         GLPolygonWindow(QWidget* parent, Scene* scene);
         ~GLPolygonWindow();

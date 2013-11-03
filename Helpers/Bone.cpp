@@ -2,6 +2,7 @@
 #include "Matrix.h"
 #include <iostream>
 #include "Sphere.h"
+#include <algorithm>
 
 using namespace std;
 
@@ -80,22 +81,16 @@ void Bone::setAnimation(Point start, Point end, int rate, int delay)
 void Bone::nextFrame()
 {
 	if (animationRate == 0) { return; }
+
 	if (animationFrame < frameDelay)
 	{
 		animationFrame++;
 		return;
 	}
 
-
-	if ((animationFrame % animationRate == 0) && !firstFrame)
-	{
-		// Invert the direction
-		animateForward = !animateForward;
-	}
-
 	firstFrame = false;
 
-	Point step = (animationStop - animationStart) / animationRate;
+	Point step = (animationStop - animationStart) / (float)animationRate;
 
 	if (!animateForward)
 	{
@@ -103,6 +98,20 @@ void Bone::nextFrame()
 	}
 
 	currentFrame = currentFrame + step;
+	currentFrame.x = (int)currentFrame.x % 360;
+	currentFrame.y = (int)currentFrame.y % 360;
+	currentFrame.z = (int)currentFrame.z % 360;
+
+	float minX = min(animationStop.x, animationStart.x);
+	float maxX = max(animationStop.x, animationStart.x);
+
+	// HACK: We're only rotating around x, so for now this works. D:
+	if ((currentFrame.x >= maxX || currentFrame.x <= minX) && !firstFrame)
+	{
+		// Invert the direction
+		animateForward = !animateForward;
+	}
+
 	animationFrame++;
 
 	map<string, Bone*>::iterator i;
@@ -139,8 +148,8 @@ void Bone::render()
 	// First render our shape
 	this->shape->render();
 	glPopMatrix();
-	/*Sphere s = Sphere(0.01, Point(0, 0, 0));
-	s.render();*/
+	// Sphere s = Sphere(0.01, Point(0, 0, 0));
+	// s.render();
 	// Then render all our children bones
 	map<string, Bone*>::iterator i;
 	for (i = children.begin(); i != children.end(); i++)

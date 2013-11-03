@@ -21,6 +21,7 @@ class Point
         Point operator-(Point p);
         Point operator*(float s);
         Point operator/(float s);
+        bool operator ==(Point p);
         operator Vector ();
         
      private:

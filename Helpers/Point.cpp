@@ -69,10 +69,15 @@ Point Point::operator -(Point p)
 Point Point::operator /(float s)
 {
     Point rp = Point();
-    rp.x = x / s;
-    rp.y = y / s;
-    rp.z = z / s;
+    rp.x = (float)x / s;
+    rp.y = (float)y / s;
+    rp.z = (float)z / s;
     return rp;
+}
+
+bool Point::operator ==(Point p)
+{
+    return p.x == x && p.y == y && p.z == z;
 }
 
 Point::operator Vector()

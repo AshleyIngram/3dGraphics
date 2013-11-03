@@ -17,11 +17,13 @@ class ApplicationController : public QObject
 
     public slots:
     	void nextFrame();
+    	void setAnimation(bool animate);
         
     private:
         Scene* scene;
         GLPolygonWindow* window;
         QTimer* timer;
+        bool isAnimating;
 };
 
 #endif

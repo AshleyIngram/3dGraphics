@@ -8,6 +8,8 @@
 #include "Cylinder.h"
 #include "ColouredSurface.h"
 #include "Bone.h"
+#include "Pelvis.h"
+#include "TexturedSurface.h"
 
 Bone* createArrow(Surface* surface, Point p)
 {
@@ -41,22 +43,29 @@ Bone* createMan()
     ColouredSurface* green = new ColouredSurface(0, 1, 0);
     ColouredSurface* blue = new ColouredSurface(0, 0, 1);
 
-    Shape* pelvis = new Cylinder(0.1, 0.15, Point(0.3, 0, 0));
+    Shape* rootShape = new Cylinder(0, 0, Point(0, 0, 0));
+    Pelvis* root = new Pelvis(rootShape);
+
+    Shape* pelvis = new Cylinder(0.08, 0.15, Point(0.3, 0, 0));
     pelvis->setSurface(blue);
     Bone* bPelvis = new Bone(pelvis);
     pelvis->setRotation(90, 0, 0);
 
-    Shape* chest = new Cylinder(0.1, 0.1, Point(0, 0.125, 0));
+    root->addChild("Pelvis", bPelvis);
+    
+    Shape* chest = new Cylinder(0.08, 0.1, Point(0, 0.125, 0));
     chest->setSurface(green);
     Bone* bChest = new Bone(chest);
     chest->setRotation(90, 0, 0);
 
     Shape* head = new Sphere(0.08, Point(0, 0.13, 0));
-    head->setSurface(blue);
+
+    TexturedSurface* headTex = new TexturedSurface("./face.jpg");
+    head->setTexture(headTex);
     Bone* bHead = new Bone(head);
     head->setRotation(90, 0, 0);
 
-    Shape* upperLeftArm = new Cylinder(0.02, 0.08, Point(-0.12, 0, 0));
+    Shape* upperLeftArm = new Cylinder(0.02, 0.08, Point(-0.1, 0, 0));
     upperLeftArm->setSurface(red);
     upperLeftArm->setRotation(90, 0, 0);
     Bone* ula = new Bone(upperLeftArm);
@@ -68,7 +77,7 @@ Bone* createMan()
     Bone* lla = new Bone(lowerLeftArm);
     lla->setJointOffset(0, -0.04, 0);
 
-    Shape* upperRightArm = new Cylinder(0.02, 0.08, Point(0.12, 0, 0));
+    Shape* upperRightArm = new Cylinder(0.02, 0.08, Point(0.1, 0, 0));
     upperRightArm->setSurface(red);
     upperRightArm->setRotation(90, 0, 0);
     Bone* ura = new Bone(upperRightArm);
@@ -80,25 +89,29 @@ Bone* createMan()
     Bone* lra = new Bone(lowerRightArm);
     lra->setJointOffset(0, -0.04, 0);
 
-    Shape* upperLeftLeg = new Cylinder(0.03, 0.08, Point(-0.05, -0.115, 0));
+    Shape* upperLeftLeg = new Cylinder(0.03, 0.08, Point(-0.04, -0.07, 0));
     upperLeftLeg->setSurface(red);
     upperLeftLeg->setRotation(90, 0, 0);
     Bone* ull = new Bone(upperLeftLeg);
+    ull->setJointOffset(0, -0.04, 0);
 
-    Shape* lowerLeftLeg = new Cylinder(0.03, 0.08, Point(0, -0.08, 0));
+    Shape* lowerLeftLeg = new Cylinder(0.03, 0.08, Point(0, -0.1, 0));
     lowerLeftLeg->setSurface(blue);
     lowerLeftLeg->setRotation(90, 0, 0);
     Bone* lll = new Bone(lowerLeftLeg);
+    lll->setJointOffset(0, -0.02, 0);
 
-    Shape* upperRightLeg = new Cylinder(0.03, 0.08, Point(0.05, -0.115, 0));
+    Shape* upperRightLeg = new Cylinder(0.03, 0.08, Point(0.04, -0.07, 0));
     upperRightLeg->setSurface(red);
     upperRightLeg->setRotation(90, 0, 0);
     Bone* url = new Bone(upperRightLeg);
+    url->setJointOffset(0, -0.04, 0);
 
-    Shape* lowerRightLeg = new Cylinder(0.03, 0.08, Point(0, -0.08, 0));
+    Shape* lowerRightLeg = new Cylinder(0.03, 0.08, Point(0, -0.1, 0));
     lowerRightLeg->setSurface(blue);
     lowerRightLeg->setRotation(90, 0, 0);
     Bone* lrl = new Bone(lowerRightLeg);
+    lrl->setJointOffset(0, -0.02, 0);
 
     bPelvis->addChild("Chest", bChest);
     bPelvis->addChild("LeftLeg", ull);
@@ -115,15 +128,22 @@ Bone* createMan()
     url->addChild("LowerLeg", lrl);
 
 
-    ura->setAnimation(Point(0, 0, 0), Point(-90, 0, 0), 90, 0);
-    lra->setAnimation(Point(0, 0, 0), Point(-45, 0, 0), 135, 0);
+    ura->setAnimation(Point(10, 0, 0), Point(-90, 0, 0), 45, 0);
+    lra->setRotation(-45, 0, 0);
     
-    ula->setAnimation(Point(90, 0, 0), Point(0, 0, 0), 90, 90);
+    ula->setAnimation(Point(10, 0, 0), Point(-90, 0, 0), 45, 45);
     lla->setRotation(-45, 0, 0);
 
-    // bPelvis->setRotation(0, 90, 0);
+    ull->setAnimation(Point(10, 0, 0), Point(-90, 0, 0), 45, 0);
+    // lll->setAnimation(Point(45, 0, 0), Point(-90, 0, 0), 90, 0);
+    lll->setRotation(45, 0, 0);
 
-    return bPelvis;
+    url->setAnimation(Point(10, 0, 0), Point(-90, 0, 0), 45, 45);
+    // lrl->setAnimation(Point(45, 0, 0), Point(-90, 0, 0), 90, 90);
+    lrl->setRotation(45, 0, 0);
+
+    bPelvis->setRotation(0, 180, 0);
+    return root;
 }
 
 GLPolygonWidget::GLPolygonWidget(QWidget* parent, Scene* scene) 
@@ -145,13 +165,10 @@ GLPolygonWidget::GLPolygonWidget(QWidget* parent, Scene* scene)
     ColouredSurface* blue = new ColouredSurface(0, 0, 1);
     Bone* arrow3 = createArrow(blue, Point(0, 0, 90));
 
-    // Create man
-    Bone* man = createMan();
-
     scene->addShape("Arrow1", arrow1);
     scene->addShape("Arrow2", arrow2);
     scene->addShape("Arrow3", arrow3);
-    scene->addShape("RunningMan", man);
+
 
     // glRotatef(-90, 0.0, 1.0, 0.0);
 }
@@ -173,6 +190,9 @@ void GLPolygonWidget::initializeGL()
 {
     glEnable(GL_DEPTH_TEST);
     glClearColor(0.3, 0.3, 0.3, 0.0);
+    // Create man
+    Bone* man = createMan();
+    scene->addShape("RunningMan", man);
 }
 
 // Resize the viewport

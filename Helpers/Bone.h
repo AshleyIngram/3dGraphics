@@ -11,7 +11,7 @@ class Bone
 {
     public:
     	Bone(Shape* shape);      
-        void render();
+        virtual void render();
         void addChild(std::string key, Bone* shape);
         void removeChild(std::string key);
         void setOrigin(Point origin);
@@ -20,7 +20,7 @@ class Bone
         void setJointOffset(float x, float y, float z);
         void setJointOffset(Point p);
         void animate();
-        void nextFrame();
+        virtual void nextFrame();
         void setAnimation(Point start, Point end, int rate, int delay);
                 
     protected:

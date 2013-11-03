@@ -6,6 +6,7 @@
 #include "Surface.h"
 #include "Triangle.h"
 #include "Quad.h"
+#include "TexturedSurface.h"
 
 class Bone;
 
@@ -27,6 +28,7 @@ class Shape
 		void setOrigin(float x, float y, float z);
 		void setOrigin(Point p);
 		void setSurface(Surface* surface);
+		void setTexture(TexturedSurface* surface);
 		Point getOrigin();
 
 		operator Bone ();
@@ -39,6 +41,7 @@ class Shape
 		std::vector<Quad> quads;
 		Point origin;
 		Surface* surface;
+		bool hasTexture;
 		
 	private:
 		float xRotate;

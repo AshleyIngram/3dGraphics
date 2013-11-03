@@ -17,6 +17,7 @@ Shape::Shape()
 
 	// Default to the only surface we have at the moment
 	this->surface = new AlternatingSurface();
+	this->hasTexture = false;
 }
 
 Shape::Shape(Point origin)
@@ -29,6 +30,19 @@ Shape::Shape(Point origin)
 
 void Shape::render()
 {
+	if (hasTexture)
+	{
+		GLuint texture = ((TexturedSurface*)this->surface)->getTexture();
+		
+        glEnable(GL_TEXTURE_2D);
+        glBindTexture(GL_TEXTURE_2D, texture);
+
+	}
+	else
+	{
+		glDisable(GL_TEXTURE_2D);
+	}
+
 	// First triangles...
 	glBegin(GL_TRIANGLES);
 	for (uint i = 0; i < this->triangles.size()*3; i+=3)
@@ -155,6 +169,13 @@ Point Shape::getOrigin()
 		
 void Shape::setSurface(Surface* surface)
 {
+	this->hasTexture = false;
+	this->surface = surface;
+}
+
+void Shape::setTexture(TexturedSurface* surface)
+{
+	this->hasTexture = true;
 	this->surface = surface;
 }
 

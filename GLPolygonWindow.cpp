@@ -21,11 +21,19 @@ GLPolygonWindow::GLPolygonWindow(QWidget* parent, Scene* scene)
     polygonWidget = new GLPolygonWidget(this, scene);
     rowOneLayout->addWidget(polygonWidget);
     windowLayout->addLayout(rowOneLayout);
+
+    // Second row for animation
+    QBoxLayout* rowTwoLayout = new QBoxLayout(QBoxLayout::LeftToRight);
+    isAnimating = new QCheckBox(tr("Animate"));
+    isAnimating->setCheckState(Qt::Checked);
+    rowTwoLayout->addWidget(isAnimating);
+    windowLayout->addLayout(rowTwoLayout);
 }
 
 GLPolygonWindow::~GLPolygonWindow()
 {
     delete polygonWidget;
+    delete isAnimating;
     delete windowLayout;
     delete actionQuit;
     delete fileMenu;
