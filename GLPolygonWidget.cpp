@@ -60,23 +60,49 @@ Bone* createMan()
     upperLeftArm->setSurface(red);
     upperLeftArm->setRotation(90, 0, 0);
     Bone* ula = new Bone(upperLeftArm);
+    ula->setJointOffset(0, -0.04, 0);
 
     Shape* lowerLeftArm = new Cylinder(0.02, 0.08, Point(0, -0.08, 0));
     lowerLeftArm->setSurface(green);
     lowerLeftArm->setRotation(90, 0, 0);
     Bone* lla = new Bone(lowerLeftArm);
+    lla->setJointOffset(0, -0.04, 0);
 
     Shape* upperRightArm = new Cylinder(0.02, 0.08, Point(0.12, 0, 0));
     upperRightArm->setSurface(red);
     upperRightArm->setRotation(90, 0, 0);
     Bone* ura = new Bone(upperRightArm);
+    ura->setJointOffset(0, -0.04, 0);
 
     Shape* lowerRightArm = new Cylinder(0.02, 0.08, Point(0, -0.08, 0));
     lowerRightArm->setSurface(green);
     lowerRightArm->setRotation(90, 0, 0);
     Bone* lra = new Bone(lowerRightArm);
+    lra->setJointOffset(0, -0.04, 0);
+
+    Shape* upperLeftLeg = new Cylinder(0.03, 0.08, Point(-0.05, -0.115, 0));
+    upperLeftLeg->setSurface(red);
+    upperLeftLeg->setRotation(90, 0, 0);
+    Bone* ull = new Bone(upperLeftLeg);
+
+    Shape* lowerLeftLeg = new Cylinder(0.03, 0.08, Point(0, -0.08, 0));
+    lowerLeftLeg->setSurface(blue);
+    lowerLeftLeg->setRotation(90, 0, 0);
+    Bone* lll = new Bone(lowerLeftLeg);
+
+    Shape* upperRightLeg = new Cylinder(0.03, 0.08, Point(0.05, -0.115, 0));
+    upperRightLeg->setSurface(red);
+    upperRightLeg->setRotation(90, 0, 0);
+    Bone* url = new Bone(upperRightLeg);
+
+    Shape* lowerRightLeg = new Cylinder(0.03, 0.08, Point(0, -0.08, 0));
+    lowerRightLeg->setSurface(blue);
+    lowerRightLeg->setRotation(90, 0, 0);
+    Bone* lrl = new Bone(lowerRightLeg);
 
     bPelvis->addChild("Chest", bChest);
+    bPelvis->addChild("LeftLeg", ull);
+    bPelvis->addChild("RightLeg", url);
     
     bChest->addChild("Head", bHead);
     bChest->addChild("UpperRightArm", ura);
@@ -85,7 +111,17 @@ Bone* createMan()
     ula->addChild("LowerArm", lla);
     ura->addChild("LowerArm", lra);
 
-    ura->setRotation(90, 0, 0);
+    ull->addChild("LowerLeg", lll);
+    url->addChild("LowerLeg", lrl);
+
+
+    ura->setAnimation(Point(0, 0, 0), Point(-90, 0, 0), 90, 0);
+    lra->setAnimation(Point(0, 0, 0), Point(-45, 0, 0), 135, 0);
+    
+    ula->setAnimation(Point(90, 0, 0), Point(0, 0, 0), 90, 90);
+    lla->setRotation(-45, 0, 0);
+
+    // bPelvis->setRotation(0, 90, 0);
 
     return bPelvis;
 }

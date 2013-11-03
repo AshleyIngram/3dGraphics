@@ -14,10 +14,14 @@ class ApplicationController : public QObject
     public:
         ApplicationController(GLPolygonWindow* window, Scene* polygon);
         ~ApplicationController();
+
+    public slots:
+    	void nextFrame();
         
     private:
         Scene* scene;
         GLPolygonWindow* window;
+        QTimer* timer;
 };
 
 #endif

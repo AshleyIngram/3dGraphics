@@ -9,7 +9,18 @@ ApplicationController::ApplicationController(GLPolygonWindow* window, Scene* sce
     this->scene = scene;
     
     // Hook up quit event
-    connect(window->actionQuit, SIGNAL(triggered()), QCoreApplication::instance(), SLOT(quit()));   
+    connect(window->actionQuit, SIGNAL(triggered()), QCoreApplication::instance(), SLOT(quit()));
+
+    // Start the timer
+    timer = new QTimer(this);
+    connect(timer, SIGNAL(timeout()), this, SLOT(nextFrame()));
+    timer->start(16.67);   
+}
+
+void ApplicationController::nextFrame()
+{
+	// Tell OpenGL to redraw
+	window->resetInterface();
 }
 
 ApplicationController::~ApplicationController() 

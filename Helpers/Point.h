@@ -17,7 +17,10 @@ class Point
         
         float* toArray();
         friend std::ostream& operator<<(std::ostream& out, const Point x);
-        Point operator+(Point p); 
+        Point operator+(Point p);
+        Point operator-(Point p);
+        Point operator*(float s);
+        Point operator/(float s);
         operator Vector ();
         
      private:

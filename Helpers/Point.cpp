@@ -48,6 +48,33 @@ Point Point::operator +(Point p)
     return rp;
 }
 
+Point Point::operator *(float s)
+{
+    Point rp = Point();
+    rp.x = x * s;
+    rp.y = y * s;
+    rp.z = z * s;
+    return rp;
+}
+
+Point Point::operator -(Point p)
+{
+    Point rp = Point();
+    rp.x = x - p.x;
+    rp.y = y - p.y;
+    rp.z = z - p.z;
+    return rp;
+}
+
+Point Point::operator /(float s)
+{
+    Point rp = Point();
+    rp.x = x / s;
+    rp.y = y / s;
+    rp.z = z / s;
+    return rp;
+}
+
 Point::operator Vector()
 {
     return Vector(this->x, this->y, this->z);

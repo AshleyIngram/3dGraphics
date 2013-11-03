@@ -5,6 +5,7 @@
 #include <string>
 #include "Shape.h"
 #include "Point.h"
+#include "Matrix.h"
 
 class Bone
 {
@@ -16,6 +17,11 @@ class Bone
         void setOrigin(Point origin);
         void setRotation(float x, float y, float z);
         Point getOrigin();
+        void setJointOffset(float x, float y, float z);
+        void setJointOffset(Point p);
+        void animate();
+        void nextFrame();
+        void setAnimation(Point start, Point end, int rate, int delay);
                 
     protected:
         Shape* shape;
@@ -24,5 +30,14 @@ class Bone
         float xRotate;
         float yRotate;
         float zRotate;
+        Point jointOffset;
+        Point animationStart;
+        Point animationStop;
+        int animationRate;
+        bool animateForward;
+        int animationFrame;
+        Point currentFrame;
+        bool firstFrame;
+        int frameDelay;
 };
 #endif

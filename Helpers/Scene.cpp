@@ -27,3 +27,8 @@ void Scene::render()
 		i->second->render();
 	}
 }
+
+map<string, Bone*> Scene::getBones()
+{
+	return bones;
+}
