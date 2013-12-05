@@ -11,6 +11,7 @@
 #include "Person.h"
 #include "TexturedSurface.h"
 #include "Arrow.h"
+#include "Tree.h"
 
 GLPolygonWidget::GLPolygonWidget(QWidget* parent, Scene* scene) 
 {
@@ -31,9 +32,9 @@ GLPolygonWidget::GLPolygonWidget(QWidget* parent, Scene* scene)
     ColouredSurface* blue = new ColouredSurface(0, 0, 1);
     Bone* arrow3 = new Arrow(blue, Point(0, 0, 90));
 
-    scene->addShape("Arrow1", arrow1);
+    /*scene->addShape("Arrow1", arrow1);
     scene->addShape("Arrow2", arrow2);
-    scene->addShape("Arrow3", arrow3);
+    scene->addShape("Arrow3", arrow3);*/
 }
 
 void GLPolygonWidget::mouseClickEvent(QMouseEvent* e)
@@ -53,9 +54,10 @@ void GLPolygonWidget::initializeGL()
 {
     glEnable(GL_DEPTH_TEST);
     glClearColor(0.3, 0.3, 0.3, 0.0);
-    // Create man
-    Bone* man = new Person();
-    scene->addShape("RunningMan", man);
+    
+    // Tree
+    Bone* tree = new Tree(7);
+    scene->addShape("Tree", tree);
 }
 
 // Resize the viewport

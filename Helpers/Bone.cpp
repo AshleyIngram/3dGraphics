@@ -148,8 +148,8 @@ void Bone::render()
 	// First render our shape
 	this->shape->render();
 	glPopMatrix();
-	// Sphere s = Sphere(0.01, Point(0, 0, 0));
-	// s.render();
+	/*Sphere s = Sphere(0.01, Point(0, 0, 0));
+	s.render();*/
 	// Then render all our children bones
 	map<string, Bone*>::iterator i;
 	for (i = children.begin(); i != children.end(); i++)
