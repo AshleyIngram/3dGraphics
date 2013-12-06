@@ -35,7 +35,7 @@ void Tree::render()
 
 	for (int i = 0; i < 360; i++)
 	{
-		if (i%180 == 0)
+		if (i%90 == 0)
 		{
 			glPushMatrix();
 			glTranslatef(0, 0.2, 0);
@@ -44,6 +44,13 @@ void Tree::render()
 			glPopMatrix();
 		}
 	}
+
+	// Grow a branch on top so the tree isn't balding.
+	glPushMatrix();
+	glTranslatef(0, 0.2, 0);
+	// glRotatef(0, 0, 1, 0);
+	growBranch(seasons-1, 270, 0.2);
+	glPopMatrix();
 
 	/*
 	glPushMatrix();
@@ -83,6 +90,16 @@ void Tree::growBranch(int s, int rotation, int size)
 		growBranch(s-1, 20, 0.4);
 		glTranslatef(0, 0, -(size/2));
 
+		glPushMatrix();
+		glRotatef(90, 0, 1, 0);
+		growBranch(s-1, -20, 0.4);
+		glPopMatrix();
+
+		glPushMatrix();
+		glRotatef(-90, 0, 1, 0);
+		growBranch(s-1, -20, 0.4);
+		glPopMatrix();
+
 		// Pop the transforms applied in growBranch
 		glPopMatrix();
 
@@ -103,8 +120,8 @@ void Tree::drawCylinder(float r, float size, int rotation)
 {
 	// Construct the actual shape
 	Shape shape = Cylinder(r, size, Point(0, 0, 0));
-	ColouredSurface brown = ColouredSurface(0.33, 0.21, 0.04);
-	shape.setSurface(&brown);
+	ColouredSurface green = ColouredSurface(0.0, 0.392, 0.0);
+	shape.setSurface(&green);
 
 	// Translate to the end of the shape
 	glPushMatrix();

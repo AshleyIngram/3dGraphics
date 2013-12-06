@@ -56,7 +56,7 @@ void GLPolygonWidget::initializeGL()
     glClearColor(0.3, 0.3, 0.3, 0.0);
     
     // Tree
-    Bone* tree = new Tree(5);
+    Bone* tree = new Tree(4);
     scene->addShape("Tree", tree);
 }
 
