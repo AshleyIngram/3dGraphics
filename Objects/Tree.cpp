@@ -51,24 +51,6 @@ void Tree::render()
 	// glRotatef(0, 0, 1, 0);
 	growBranch(seasons-1, 270, 0.2);
 	glPopMatrix();
-
-	/*
-	glPushMatrix();
-		glTranslatef(0, 0.2, 0);
-		growBranch(seasons-1, -50, 0.2);
-	glPopMatrix();
-
-	glPushMatrix();
-		glTranslatef(0, 0.2, 0);
-		growBranch(seasons-1, 200, 0.2);
-	glPopMatrix();
-
-	glPushMatrix();
-		glTranslatef(0, 0.2, 0);
-		glRotatef(90, 0, 1, 0);
-		growBranch(seasons-1, 200, 0.2);
-	glPopMatrix();
-	*/
 }
 
 void Tree::growBranch(int s, int rotation, int size)

@@ -12,6 +12,8 @@
 #include "TexturedSurface.h"
 #include "Arrow.h"
 #include "Tree.h"
+#include "Snowflake.h"
+#include <sstream>
 
 GLPolygonWidget::GLPolygonWidget(QWidget* parent, Scene* scene) 
 {
@@ -58,6 +60,26 @@ void GLPolygonWidget::initializeGL()
     // Tree
     Bone* tree = new Tree(4);
     scene->addShape("Tree", tree);
+
+    int numSnowflakes = 100;
+
+    // Create a snowflake
+    for (int i = 0; i < numSnowflakes; i++)
+    {
+        // Evenly distribute horizontally
+        float hStart = (((float)2/numSnowflakes) * (i + 1)) - 1;
+
+        // Random distribution vertically (up to a full screen above)
+        float vStart = 1 + (float)(rand() % 200 + 1) / 100;
+
+        // Random between 1 and -1 for depth
+        float dStart = (float)(rand() % 200) / 100 - 1;
+
+        Bone* snowflake = new Snowflake(Point(hStart, vStart, dStart));
+        std::stringstream ss;
+        ss << i;
+        scene->addShape("Snowflake" + ss.str(), snowflake);
+    }
 }
 
 // Resize the viewport
