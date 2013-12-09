@@ -25,7 +25,7 @@ GLPolygonWidget::GLPolygonWidget(QWidget* parent, Scene* scene)
 
 void GLPolygonWidget::mouseClickEvent(QMouseEvent* e)
 {
-    this->rotateStartPoint = Point(e->x(), e->y(), 0);
+    this->rotateStartPoint = Point(0, 0, 0);
 }
 
 void GLPolygonWidget::mouseMoveEvent(QMouseEvent* e)
@@ -82,8 +82,8 @@ void GLPolygonWidget::paintGL()
     // Render child polygon
     glMatrixMode(GL_MODELVIEW);
 
-    glRotatef(rotateBy.y, 0, 1, 0);
-    glRotatef(rotateBy.x, 0, 0, 1);
+    glRotatef(rotateBy.y, 1, 0, 0);
+    glRotatef(rotateBy.x, 0, 1, 0);
     rotateBy = Point();
     scene->render();
     
