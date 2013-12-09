@@ -4,7 +4,7 @@
 #include <iostream>
 #include <sstream>
 #include <string>
-#include <stdlib.h>
+#include <stdlib.h> 
 #include "Sphere.h"
 
 ChristmasTree::ChristmasTree(int seasons) : Bone(getRoot())
@@ -20,6 +20,39 @@ ChristmasTree::ChristmasTree(int seasons) : Bone(getRoot())
 	this->shape->setSurface(brown);
 
 	this->seed = (rand() % 100) + 1;
+	this->initialRotation = 130;
+}
+
+ChristmasTree::ChristmasTree(int seasons, int initialRotation) : Bone(getRoot())
+{
+	this->seasons = seasons;
+
+	if (seasons == 0)
+	{
+		return;
+	}
+
+	ColouredSurface* brown = new ColouredSurface(0.33, 0.21, 0.04);
+	this->shape->setSurface(brown);
+
+	this->seed = (rand() % 100) + 1;
+	this->initialRotation = initialRotation;
+}
+
+ChristmasTree::ChristmasTree(int seasons, int initialRotation, uint seed) : Bone(getRoot())
+{
+	this->seasons = seasons;
+
+	if (seasons == 0)
+	{
+		return;
+	}
+
+	ColouredSurface* brown = new ColouredSurface(0.33, 0.21, 0.04);
+	this->shape->setSurface(brown);
+
+	this->seed = seed;
+	this->initialRotation = initialRotation;
 }
 
 Shape* ChristmasTree::getRoot()
@@ -30,7 +63,6 @@ Shape* ChristmasTree::getRoot()
 void ChristmasTree::render()
 {
 	srand(seed);
-
 	// Render self
 	glPushMatrix();
 		glRotatef(90, 1, 0, 0);
@@ -46,7 +78,7 @@ void ChristmasTree::render()
 				glPushMatrix();
 				glTranslatef(0, 0.2 * j, 0);
 				glRotatef(i, 0, 1, 0);
-				growBranch(seasons-1, 130, 0.2);
+				growBranch(seasons-1, initialRotation, 0.2);
 				glPopMatrix();
 			}
 		}
