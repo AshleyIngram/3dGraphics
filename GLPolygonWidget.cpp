@@ -21,22 +21,6 @@ GLPolygonWidget::GLPolygonWidget(QWidget* parent, Scene* scene)
     this->scene = scene;
     this->rotateStartPoint = Point(0, 0, 0);
     this->rotateBy = Point(0, 0, 0);
-
-    // Arrow 1
-    ColouredSurface* red = new ColouredSurface(1, 0, 0);
-    Bone* arrow1 = new Arrow(red, Point(90, 0, 0));
-
-    // Arrow 2
-    ColouredSurface* green = new ColouredSurface(0, 1, 0);
-    Bone* arrow2 = new Arrow(green, Point(0, 90, 0));
-
-    // Arrow 3
-    ColouredSurface* blue = new ColouredSurface(0, 0, 1);
-    Bone* arrow3 = new Arrow(blue, Point(0, 0, 90));
-
-    /*scene->addShape("Arrow1", arrow1);
-    scene->addShape("Arrow2", arrow2);
-    scene->addShape("Arrow3", arrow3);*/
 }
 
 void GLPolygonWidget::mouseClickEvent(QMouseEvent* e)
