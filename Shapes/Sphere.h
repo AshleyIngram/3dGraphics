@@ -12,10 +12,12 @@ class Sphere : public Shape
         Sphere(Point origin);
         Sphere(float radius);
         Sphere(float radius, Point origin);
+        Sphere(float radius, Point origin, float quality);
 
     protected:
     	float radius;
     	void setGeometry();
+    	float quality;
 };
 
 #endif

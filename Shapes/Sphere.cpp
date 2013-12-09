@@ -5,12 +5,14 @@
 Sphere::Sphere() : Shape()
 {
     this->radius = 0.5;
+    this->quality = 100;
     this->setGeometry();
 }
 
 Sphere::Sphere(Point origin) : Shape(origin) 
 {
     this->radius = 0.5;
+    this->quality = 100;
     this->setGeometry();
 }
 
@@ -18,18 +20,27 @@ Sphere::Sphere(float radius) : Shape()
 {
     this->radius = radius;
     this->setGeometry();
+    this->quality = 100;
 }
 
 Sphere::Sphere(float radius, Point origin) : Shape(origin)
 {
     this->radius = radius;
+    this->quality = 100;
+    this->setGeometry();
+}
+
+Sphere::Sphere(float radius, Point origin, float quality) : Shape(origin)
+{
+    this->radius = radius;
+    this->quality = quality;
     this->setGeometry();
 }
 
 void Sphere::setGeometry()
 {
-    int lats = 100;
-    int longs = 100;
+    int lats = quality;
+    int longs = quality;
     float r = this->radius;
     
     for(int i = 0; i <= lats; i++) 

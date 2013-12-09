@@ -30,7 +30,7 @@ void Snowflake::render()
 
 Shape* Snowflake::getSphere()
 {
-	Sphere* s = new Sphere(0.01, Point(0, 0, 0));
+	Sphere* s = new Sphere(0.01, Point(0, 0, 0), 10);
 	ColouredSurface* white = new ColouredSurface(1, 1, 1);
 	s->setSurface(white);
 	return s;
