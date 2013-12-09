@@ -57,7 +57,7 @@ ChristmasTree::ChristmasTree(int seasons, int initialRotation, uint seed) : Bone
 
 Shape* ChristmasTree::getRoot()
 {
-	return new Cylinder(0.05, 0.9, Point(0, 0, 0));
+	return new Cylinder(0.05, 1.3, Point(0, 0, 0));
 }
 
 void ChristmasTree::render()
@@ -76,9 +76,11 @@ void ChristmasTree::render()
 			for (int j = 0; j < 3; j++)
 			{
 				glPushMatrix();
-				glTranslatef(0, 0.2 * j, 0);
+				glTranslatef(0, 0.3 * j, 0);
 				glRotatef(i, 0, 1, 0);
-				growBranch(seasons-1, initialRotation, 0.2);
+
+				// subtract j, giving the 'pyramid' style shape
+				growBranch(seasons-(1 + j/2), initialRotation, 0.2);
 				glPopMatrix();
 			}
 		}
