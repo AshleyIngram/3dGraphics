@@ -21,7 +21,7 @@ ChristmasTree::ChristmasTree(int seasons) : Bone(getRoot())
 
 Shape* ChristmasTree::getRoot()
 {
-	return new Cylinder(0.05, 0.5, Point(0, 0, 0));
+	return new Cylinder(0.05, 0.9, Point(0, 0, 0));
 }
 
 void ChristmasTree::render()
@@ -68,6 +68,18 @@ void ChristmasTree::growBranch(int s, int rotation, int size)
 		glRotatef(rotation, 1, 0, 0);
 		drawCylinder(0.025, 0.2, rotation);
 		glTranslatef(0.0, 0, 0.05);
+
+		if (s == 1)
+		{
+			// Add a bauble on end branches
+			Shape bauble = Sphere(0.01, Point(0, 0, 0), 10);
+			ColouredSurface red = ColouredSurface(1, 0, 0);
+			bauble.setSurface(&red);
+			glPushMatrix();
+				glTranslatef(0, 0.03, 0);
+				bauble.render();
+			glPopMatrix();
+		}
 
 		growBranch(s-1, -20, 0.4);
 		glTranslatef(0, 0, -(size/2));
