@@ -6,6 +6,7 @@ Cylinder::Cylinder() : Shape()
 {
     this->radius = 0.5;
     this->height = 0.5;
+    this->quality = 100;
     this->setGeometry();
 }
 
@@ -13,6 +14,7 @@ Cylinder::Cylinder(Point p) : Shape(p)
 {
     this->radius = 0.5;
     this->height = 0.5;
+    this->quality = 100;
     this->setGeometry();
 }
 
@@ -20,6 +22,7 @@ Cylinder::Cylinder(float radius, float height, Point p) : Shape(p)
 {
     this->radius = radius;
     this->height = height;
+    this->quality = 100;
     this->setGeometry();
 }
 
@@ -27,12 +30,21 @@ Cylinder::Cylinder(float radius, float height) : Shape()
 {
     this->radius = radius;
     this->height = height;
+    this->quality = 100;
+    this->setGeometry();
+}
+
+Cylinder::Cylinder(float radius, float height, Point p, int quality) : Shape(p)
+{
+    this->radius = radius;
+    this->height = height;
+    this->quality = quality;
     this->setGeometry();
 }
 
 void Cylinder::setGeometry()
 {
-    int segments = 100;
+    int segments = quality;
     float r = this->radius;
 
     for (int i = 0; i < segments; i++)

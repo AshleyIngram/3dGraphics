@@ -42,7 +42,7 @@ void GLPolygonWidget::initializeGL()
     glClearColor(0.3, 0.3, 0.3, 0.0);
     
     // Tree
-    Bone* tree = new ChristmasTree(4);
+    Bone* tree = new ChristmasTree(5);
     scene->addShape("Tree", tree);
 
     int numSnowflakes = 100;

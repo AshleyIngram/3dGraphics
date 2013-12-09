@@ -150,7 +150,7 @@ void ChristmasTree::growTwig(int rotation)
 void ChristmasTree::drawCylinder(float r, float size, int rotation)
 {
 	// Construct the actual shape
-	Shape shape = Cylinder(r, size, Point(0, 0, 0));
+	Shape shape = Cylinder(r, size, Point(0, 0, 0), 10);
 	ColouredSurface green = ColouredSurface(0.0, 0.392, 0.0);
 	shape.setSurface(&green);
 

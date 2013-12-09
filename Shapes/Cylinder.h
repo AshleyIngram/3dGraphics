@@ -11,10 +11,12 @@ class Cylinder : public Shape
         Cylinder(Point p);
         Cylinder(float radius, float height, Point p);
         Cylinder(float radius, float height);
+        Cylinder(float radius, float height, Point p, int quality);
                 
     protected:
     	float height;
         float radius;
+        int quality;
         void setGeometry();
 };
 #endif
