@@ -11,7 +11,7 @@
 #include "Person.h"
 #include "TexturedSurface.h"
 #include "Arrow.h"
-#include "Tree.h"
+#include "ChristmasTree.h"
 #include "Snowflake.h"
 #include <sstream>
 
@@ -58,7 +58,7 @@ void GLPolygonWidget::initializeGL()
     glClearColor(0.3, 0.3, 0.3, 0.0);
     
     // Tree
-    Bone* tree = new Tree(4);
+    Bone* tree = new ChristmasTree(4);
     scene->addShape("Tree", tree);
 
     int numSnowflakes = 100;
