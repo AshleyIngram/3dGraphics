@@ -4,6 +4,7 @@
 #include <iostream>
 #include <sstream>
 #include <string>
+#include <stdlib.h>
 #include "Sphere.h"
 
 ChristmasTree::ChristmasTree(int seasons) : Bone(getRoot())
@@ -17,6 +18,8 @@ ChristmasTree::ChristmasTree(int seasons) : Bone(getRoot())
 
 	ColouredSurface* brown = new ColouredSurface(0.33, 0.21, 0.04);
 	this->shape->setSurface(brown);
+
+	this->seed = (rand() % 100) + 1;
 }
 
 Shape* ChristmasTree::getRoot()
@@ -26,6 +29,8 @@ Shape* ChristmasTree::getRoot()
 
 void ChristmasTree::render()
 {
+	srand(seed);
+
 	// Render self
 	glPushMatrix();
 		glRotatef(90, 1, 0, 0);
@@ -41,7 +46,6 @@ void ChristmasTree::render()
 				glPushMatrix();
 				glTranslatef(0, 0.2 * j, 0);
 				glRotatef(i, 0, 1, 0);
-				// growBranch(seasons-1, 200, 0.2);
 				growBranch(seasons-1, 130, 0.2);
 				glPopMatrix();
 			}
@@ -69,10 +73,13 @@ void ChristmasTree::growBranch(int s, int rotation, int size)
 		drawCylinder(0.025, 0.2, rotation);
 		glTranslatef(0.0, 0, 0.05);
 
-		if (s == 1)
+		double r = r = ((double) rand() / (RAND_MAX));
+		
+		// 30% chance of bauble
+		if (s == 1 && r < 0.4)
 		{
 			// Add a bauble on end branches
-			Shape bauble = Sphere(0.01, Point(0, 0, 0), 10);
+			Shape bauble = Sphere(0.02, Point(0, 0, 0), 10);
 			ColouredSurface red = ColouredSurface(1, 0, 0);
 			bauble.setSurface(&red);
 			glPushMatrix();
@@ -100,11 +107,6 @@ void ChristmasTree::growBranch(int s, int rotation, int size)
 		// Pop the transforms applied in growBranch
 		glPopMatrix();
 
-	glPopMatrix();
-
-	glPushMatrix();
-		// glRotatef(-30, 0, 1, 0);
-		// growTwig();
 	glPopMatrix();
 }
 

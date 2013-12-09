@@ -16,5 +16,6 @@ class ChristmasTree : public Bone
     	virtual void render();
     	void drawCylinder(float radius, float height, int rotation);
     	int seasons;
+    	uint seed;
 };
 #endif
