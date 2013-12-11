@@ -3,17 +3,21 @@
 
 #include "Sphere.h"
 #include "Bone.h"
+#include "Terrain.h"
 
 class Snowflake : public Bone
 {
 	public:
-		Snowflake(Point p);
+		Snowflake(Point p, Terrain* t);
+		Snowflake(Terrain* t);
 		virtual void render();
 		virtual void nextFrame(); 
+
 	private:
 		static Shape* getSphere();
+		Point getRandomPosition(bool reseed = true);
 		Point position;
-		Point initialPosition;
+		Terrain* terrain;
 
 };
 #endif

@@ -14,6 +14,8 @@
 #include "ChristmasTree.h"
 #include "Snowflake.h"
 #include <sstream>
+#include "Terrain.h"
+#include <math.h>
 
 GLPolygonWidget::GLPolygonWidget(QWidget* parent, Scene* scene) 
 {
@@ -45,21 +47,20 @@ void GLPolygonWidget::initializeGL()
     Bone* tree = new ChristmasTree(5);
     scene->addShape("Tree", tree);
 
-    int numSnowflakes = 100;
+
+    // Terrain
+    Terrain* terrainShape = new Terrain();
+    Surface* white = new ColouredSurface(1, 1, 1);
+    terrainShape->setSurface(white);
+    Bone* terrain = new Bone(terrainShape);
+    scene->addShape("Terrain", terrain);
+
+    int numSnowflakes = 200;
 
     // Create a snowflake
     for (int i = 0; i < numSnowflakes; i++)
     {
-        // Evenly distribute horizontally
-        float hStart = (((float)2/numSnowflakes) * (i + 1)) - 1;
-
-        // Random distribution vertically (up to a full screen above)
-        float vStart = 1 + (float)(rand() % 200 + 1) / 100;
-
-        // Random between 1 and -1 for depth
-        float dStart = (float)(rand() % 200) / 100 - 1;
-
-        Bone* snowflake = new Snowflake(Point(hStart, vStart, dStart));
+        Bone* snowflake = new Snowflake(terrainShape);
         std::stringstream ss;
         ss << i;
         scene->addShape("Snowflake" + ss.str(), snowflake);
@@ -70,7 +71,9 @@ void GLPolygonWidget::initializeGL()
 void GLPolygonWidget::resizeGL(int w, int h)
 {
     glMatrixMode(GL_PROJECTION);
-    glOrtho(-1, 1, -1, 1, -1, 1);       
+    // glOrtho(-1, 1, -1, 1, -1, 1);
+    glLoadIdentity();
+    glOrtho(-fmax(1, (double)w/h), fmax(1, (double)w/h), -fmax(1, (double)h/w), fmax(1, (double)h/w), -1, 1);
     glViewport(0, 0, w, h);
 }
 
