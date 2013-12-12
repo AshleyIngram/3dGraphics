@@ -1,20 +1,20 @@
 #ifndef _TRIANGLE_H
 #define _TRIANGLE_H 1
 
-#include "Point.h"
+#include "Vertex.h"
 
 class Triangle
 {
 	public:
-		inline Triangle(Point p1, Point p2, Point p3)
+		inline Triangle(Vertex p1, Vertex p2, Vertex p3)
 		{
 			this->p1 = p1;
 			this->p2 = p2;
 			this->p3 = p3;
 		}
 
-		Point p1;
-		Point p2;
-		Point p3;
+		Vertex p1;
+		Vertex p2;
+		Vertex p3;
 };
 #endif

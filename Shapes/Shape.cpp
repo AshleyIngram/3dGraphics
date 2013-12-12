@@ -80,6 +80,7 @@ void Shape::renderPoint(Point p, int i)
 
 void Shape::rotate()
 {
+	/*
 	// First for triangles
 	for (uint i = 0; i < this->triangles.size(); i++)
 	{
@@ -101,6 +102,7 @@ void Shape::rotate()
 
 		this->quads[i] = quad;
 	}
+	*/
 }
 
 Point Shape::rotate(Point p)

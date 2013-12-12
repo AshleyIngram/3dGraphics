@@ -36,7 +36,8 @@ void Cone::setGeometry()
     float r = this->radius;
 
     // Top point
-    Point top = Point(0, 0, height / 2);
+    Vector topNormal = Vector(0, 0, height / 2);
+    Vertex top = Vertex(0, 0, height / 2, topNormal);
 
     for (int i = 0; i < segments; i++)
     {
@@ -49,12 +50,19 @@ void Cone::setGeometry()
         
         Point p1 = Point(x1, y1, -(height / 2));
         Point p2 = Point(x2, y2, -(height / 2));
+
+        Vector n1 = Vector(p1.x, p1.y, p1.z).normalize();
+        Vector n2 = Vector(p2.x, p2.y, p2.z).normalize();
+
+        Vertex v1 = Vertex(p1.x, p1.y, p1.z, n1);
+        Vertex v2 = Vertex(p2.x, p2.y, p2.z, n2);
         
-        Triangle tri = Triangle(top, p1, p2);
+        Triangle tri = Triangle(top, v1, v2);
         triangles.push_back(tri);
     }
     
-    Point bottomStart = Point(0, 0, -(height / 2));
+    Vector bottomNormal = Vector(0, 0, -(height/2)).normalize();
+    Vertex bottomStart = Vertex(0, 0, -(height / 2), bottomNormal);
     
     for (int i = 0; i < segments; i++)
     {       
@@ -66,8 +74,8 @@ void Cone::setGeometry()
         float x2 = sin(nextAngle) * r;
         float y2 = cos(nextAngle) * r;
         
-        Point b2 = Point(x1, y1, -(height / 2));
-        Point b3 = Point(x2, y2, -(height / 2));
+        Vertex b2 = Vertex(x1, y1, -(height / 2), bottomNormal);
+        Vertex b3 = Vertex(x2, y2, -(height / 2), bottomNormal);
     
         Triangle tri = Triangle(b2, b3, bottomStart);
         triangles.push_back(tri);

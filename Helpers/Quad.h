@@ -1,12 +1,12 @@
 #ifndef _QUAD_H
 #define _QUAD_H 1
 
-#include "Point.h"
+#include "Vertex.h"
 
 class Quad
 {
 	public:
-		inline Quad(Point p1, Point p2, Point p3, Point p4)
+		inline Quad(Vertex p1, Vertex p2, Vertex p3, Vertex p4)
 		{
 			this->p1 = p1;
 			this->p2 = p2;
@@ -14,9 +14,9 @@ class Quad
 			this->p4 = p4;
 		}
 
-		Point p1;
-		Point p2;
-		Point p3;
-		Point p4;
+		Vertex p1;
+		Vertex p2;
+		Vertex p3;
+		Vertex p4;
 };
 #endif
