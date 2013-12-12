@@ -72,9 +72,10 @@ void Shape::render()
 	glEnd();
 }
 
-void Shape::renderPoint(Point p, int i)
+void Shape::renderPoint(Vertex p, int i)
 {
 	this->surface->setProperty(p, i);
+	glNormal3fv(p.normal.toArray());
 	glVertex3fv(p.toArray());
 }
 

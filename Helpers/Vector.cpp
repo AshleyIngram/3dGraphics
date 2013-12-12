@@ -34,11 +34,16 @@ Vector Vector::operator*(Vector input)
     return ret;
 }
 
-Vector Vector::normalize()
+float Vector::length()
 {
     float sumSquare = (x * x) + (y * y) + (z * z);
-    float length = sqrt(sumSquare);
-    Vector n = Vector(x / length, y / length, z / length);
+    return sqrt(sumSquare);
+}
+
+Vector Vector::normalize()
+{
+    float v_length = length();
+    Vector n = Vector(x / v_length, y / v_length, z / v_length);
     return n;
 }
 

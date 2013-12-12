@@ -10,9 +10,7 @@ class Cone : public Shape
         Cone(Point p);
         Cone(float radius, float height, Point p);
         Cone(float radius, float height);
-        
-        void render();
-        
+                
     protected:
         float height;
         float radius;

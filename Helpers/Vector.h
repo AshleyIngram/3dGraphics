@@ -15,6 +15,7 @@ class Vector
         
         Vector normalize();
         float* toArray();
+        float length();
         
         float x;
         float y;

@@ -62,6 +62,9 @@ Shape* ChristmasTree::getRoot()
 
 void ChristmasTree::render()
 {
+	glEnable(GL_LIGHTING);
+	glShadeModel(GL_SMOOTH);
+
 	srand(seed);
 	// Render self
 	glPushMatrix();
@@ -92,6 +95,8 @@ void ChristmasTree::render()
 	// glRotatef(0, 0, 1, 0);
 	growBranch(seasons-1, 270, 0.2);
 	glPopMatrix();
+
+	glDisable(GL_LIGHTING);
 }
 
 void ChristmasTree::growBranch(int s, int rotation, int size)

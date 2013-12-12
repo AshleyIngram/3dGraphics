@@ -42,15 +42,28 @@ void GLPolygonWidget::initializeGL()
 {
     glEnable(GL_DEPTH_TEST);
     glClearColor(0.3, 0.3, 0.3, 0.0);
+
+    glShadeModel(GL_SMOOTH);
+    glEnable(GL_LIGHT0);
+    glEnable(GL_COLOR_MATERIAL);
     
+    static const GLfloat black[4] = { 0.0, 0.0, 0.0, 1.0 };
+    static const GLfloat white_light[4] = { 1.0, 1.0, 1.0, 1.0 };
+    static const GLfloat grey[4] = { 0.3, 0.3, 0.3, 1.0 };
+    static const float lightPosition[] = { -100, 100, 0, 1 };
+    glLightfv(GL_LIGHT0, GL_POSITION, lightPosition);
+    glLightfv(GL_LIGHT0, GL_AMBIENT, grey);
+    glLightfv(GL_LIGHT0, GL_DIFFUSE, white_light);
+    glLightfv(GL_LIGHT0, GL_SPECULAR, black);
+
     // Tree
     Bone* tree = new ChristmasTree(5);
     scene->addShape("Tree", tree);
 
-
     // Terrain
     Terrain* terrainShape = new Terrain();
     Surface* white = new ColouredSurface(1, 1, 1);
+    Surface* green = new ColouredSurface(0, 1, 0);
     terrainShape->setSurface(white);
     Bone* terrain = new Bone(terrainShape);
     scene->addShape("Terrain", terrain);
@@ -89,7 +102,7 @@ void GLPolygonWidget::paintGL()
     glRotatef(rotateBy.x, 0, 1, 0);
     rotateBy = Point();
     scene->render();
-    
+
     // Flush to render
     glFlush();
 }

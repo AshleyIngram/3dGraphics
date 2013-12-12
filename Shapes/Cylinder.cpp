@@ -58,20 +58,20 @@ void Cylinder::setGeometry()
         float c2 = cos(nextAngle) * r;
         
         Point p1 = Point(s1, c1, -(height / 2));       
-        Vector n1 = Vector(p1.x, p1.y, p1.z).normalize();
+        Vector n1 = Vector(p1.x, p1.y, 0).normalize();
         Vertex v1 = Vertex(p1.x, p1.y, p1.z, n1);
 
         Point p2 = Point(s2, c2, -(height / 2));        
-        Vector n2 = Vector(p2.x, p2.y, p2.z).normalize();
+        Vector n2 = Vector(p2.x, p2.y, 0).normalize();
         Vertex v2 = Vertex(p2.x, p2.y, p2.z, n2);
 
         Point p3 = Point(s1, c1, height / 2);   
-        Vector n3 = Vector(p3.x, p3.y, p3.z).normalize();
+        Vector n3 = Vector(p3.x, p3.y, 0).normalize();
         Vertex v3 = Vertex(p3.x, p3.y, p3.z, n3);
 
         Point p4 = Point(s2, c2, height / 2);
-        Vector n4 = Vector(p4.x, p4.y, p4.z).normalize();
-        Vertex v4 = Vertex(p4.x, p4.y, p4.z, n4);   
+        Vector n4 = Vector(p4.x, p4.y, 0).normalize();
+        Vertex v4 = Vertex(p4.x, p4.y, p4.z, n4);
 
         Quad quad = Quad(v1, v3, v4, v2);
         quads.push_back(quad);

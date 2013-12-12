@@ -16,7 +16,7 @@ class Shape
 		Shape();
 		Shape(Point origin);
 
-		void render();
+		virtual void render();
 		void rotate();		
 		void setRotation(float x, float y, float z);
 		void rotateX(float x);
@@ -35,7 +35,7 @@ class Shape
 
 	protected:
 		Point rotate(Point p);
-		void renderPoint(Point p, int i);
+		void renderPoint(Vertex p, int i);
 
 		std::vector<Triangle> triangles;
 		std::vector<Quad> quads;
