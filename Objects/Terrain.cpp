@@ -110,7 +110,7 @@ void Terrain::render()
     glEnable(GL_LIGHT0);*/
 
 	glEnable(GL_LIGHTING);
-	glShadeModel(GL_FLAT);
+	glShadeModel(GL_SMOOTH);
 	Shape::render();
 	glDisable(GL_LIGHTING);
 }
