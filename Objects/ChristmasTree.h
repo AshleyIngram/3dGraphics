@@ -7,9 +7,9 @@
 class ChristmasTree : public Bone
 {
     public:
-        ChristmasTree(int seasons);
-        ChristmasTree(int seasons, int initialRotation);
-        ChristmasTree(int seasons, int initialRotation, uint seed);
+        ChristmasTree(int seasons, Point origin);
+        ChristmasTree(int seasons, Point origin, int initialRotation);
+        ChristmasTree(int seasons, Point origin, int initialRotation, uint seed);
 
     private:
     	static Shape* getRoot();
@@ -20,5 +20,6 @@ class ChristmasTree : public Bone
     	int seasons;
     	uint seed;
     	int initialRotation;
+        Point origin;
 };
 #endif

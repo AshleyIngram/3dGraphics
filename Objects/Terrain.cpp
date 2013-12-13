@@ -136,7 +136,7 @@ void Terrain::setCollision(float x, float y)
 	if (mapY <= -1)
 		mapY = 0;
 
-	increasePoint(mapX, mapY, 20);
+	increasePoint(mapX, mapY, 40);
 	setRenderPoints();
 }
 

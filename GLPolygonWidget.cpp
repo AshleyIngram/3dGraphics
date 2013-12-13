@@ -16,6 +16,8 @@
 #include <sstream>
 #include "Terrain.h"
 #include <math.h>
+#include "Snowman.h"
+#include "HeightSurface.h"
 
 GLPolygonWidget::GLPolygonWidget(QWidget* parent, Scene* scene) 
 {
@@ -49,7 +51,7 @@ void GLPolygonWidget::initializeGL()
     
     static const GLfloat black[4] = { 0.0, 0.0, 0.0, 1.0 };
     static const GLfloat white_light[4] = { 1.0, 1.0, 1.0, 1.0 };
-    static const GLfloat grey[4] = { 0.3, 0.3, 0.3, 1.0 };
+    static const GLfloat grey[4] = { 0.4, 0.4, 0.4, 1.0 };
     static const float lightPosition[] = { -100, 100, 0, 1 };
     glLightfv(GL_LIGHT0, GL_POSITION, lightPosition);
     glLightfv(GL_LIGHT0, GL_AMBIENT, grey);
@@ -57,14 +59,14 @@ void GLPolygonWidget::initializeGL()
     glLightfv(GL_LIGHT0, GL_SPECULAR, black);
 
     // Tree
-    Bone* tree = new ChristmasTree(5);
+    Bone* tree = new ChristmasTree(5, Point(0.5, -0.27, 0));
     scene->addShape("Tree", tree);
 
     // Terrain
     Terrain* terrainShape = new Terrain();
     Surface* white = new ColouredSurface(1, 1, 1);
     Surface* green = new ColouredSurface(0, 1, 0);
-    terrainShape->setSurface(white);
+    terrainShape->setSurface(new HeightSurface());
     Bone* terrain = new Bone(terrainShape);
     scene->addShape("Terrain", terrain);
 
@@ -78,6 +80,10 @@ void GLPolygonWidget::initializeGL()
         ss << i;
         scene->addShape("Snowflake" + ss.str(), snowflake);
     }
+
+    // Snowman
+    Bone* snowman = new Snowman(Point(-0.5, -0.5, 0));
+    scene->addShape("Snowman", snowman);
 }
 
 // Resize the viewport
@@ -86,7 +92,7 @@ void GLPolygonWidget::resizeGL(int w, int h)
     glMatrixMode(GL_PROJECTION);
     // glOrtho(-1, 1, -1, 1, -1, 1);
     glLoadIdentity();
-    glOrtho(-fmax(1, (double)w/h), fmax(1, (double)w/h), -fmax(1, (double)h/w), fmax(1, (double)h/w), -1, 1);
+    glOrtho(-fmax(1, (double)w/h), fmax(1, (double)w/h), -fmax(1, (double)h/w), fmax(1, (double)h/w), -1, 2);
     glViewport(0, 0, w, h);
 }
 

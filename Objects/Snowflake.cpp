@@ -3,6 +3,7 @@
 #include <iostream>
 #include <math.h>
 #include <sys/time.h>
+#include "Circle.h"
 
 Snowflake::Snowflake(Point p, Terrain* t) : Bone(getSphere())
 {
@@ -42,12 +43,13 @@ void Snowflake::render()
 
 Shape* Snowflake::getSphere()
 {
-	Sphere* s = new Sphere(0.01, Point(0, 0, 0), 10);
+	// Sphere* s = new Sphere(0.01, Point(0, 0, 0), 10);
+	Circle* s = new Circle(0.01, Point(0, 0, 0), 10);
 	ColouredSurface* white = new ColouredSurface(1, 1, 1);
 	s->setSurface(white);
 	return s;
-}
 
+}
 Point Snowflake::getRandomPosition(bool reseed)
 {
 	if (reseed == true)

@@ -64,10 +64,10 @@ void Sphere::setGeometry()
             Point p3 = Point(r * cos2 * cos(lng2), r * cos2 * sin(lng2), r * sin2);      
             Point p4 = Point(r * cos2 * cos(lng1), r * cos2 * sin(lng1), r * sin2);
             
-            Vector n1 = Vector(p1.x, p1.y, p1.z);
-            Vector n2 = Vector(p2.x, p2.y, p2.z);
-            Vector n3 = Vector(p3.x, p3.y, p3.z);
-            Vector n4 = Vector(p4.x, p4.y, p4.z);
+            Vector n1 = Vector(p1.x, p1.y, p1.z).normalize();
+            Vector n2 = Vector(p2.x, p2.y, p2.z).normalize();
+            Vector n3 = Vector(p3.x, p3.y, p3.z).normalize();
+            Vector n4 = Vector(p4.x, p4.y, p4.z).normalize();
 
             Vertex v1 = Vertex(p1.x, p1.y, p1.z, n1);
             Vertex v2 = Vertex(p2.x, p2.y, p2.z, n2);
