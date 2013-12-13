@@ -5,16 +5,18 @@
 #include <sys/time.h>
 #include "Circle.h"
 
-Snowflake::Snowflake(Point p, Terrain* t) : Bone(getSphere())
+Snowflake::Snowflake(Point p, Terrain* t, Camera* camera) : Bone(getSphere())
 {
 	this->position = p;
 	this->terrain = t;
+	this->camera = camera;
 }
 
-Snowflake::Snowflake(Terrain* t) : Bone(getSphere())
+Snowflake::Snowflake(Terrain* t, Camera* camera) : Bone(getSphere())
 {
 	this->terrain = t;
 	this->position = getRandomPosition(false);
+	this->camera = camera;
 }
 
 void Snowflake::nextFrame()
@@ -35,8 +37,10 @@ void Snowflake::render()
 {
 	nextFrame();
 	glPushMatrix();
-		float x = this->position.x + (sin(this->position.y * 2) / 20);
+    	float x = this->position.x + (sin(this->position.y * 2) / 20);
 		glTranslatef(x, this->position.y, this->position.z);
+		glRotatef(-camera->totalY, 1, 0, 0);
+    	glRotatef(-camera->totalX, 0, 1, 0);
 		this->shape->render();
 	glPopMatrix();
 }

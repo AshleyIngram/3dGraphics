@@ -25,6 +25,7 @@ GLPolygonWidget::GLPolygonWidget(QWidget* parent, Scene* scene)
     this->scene = scene;
     this->rotateStartPoint = Point(0, 0, 0);
     this->rotateBy = Point(0, 0, 0);
+    this->camera = new Camera();
 }
 
 void GLPolygonWidget::mouseClickEvent(QMouseEvent* e)
@@ -75,7 +76,7 @@ void GLPolygonWidget::initializeGL()
     // Create a snowflake
     for (int i = 0; i < numSnowflakes; i++)
     {
-        Bone* snowflake = new Snowflake(terrainShape);
+        Bone* snowflake = new Snowflake(terrainShape, camera);
         std::stringstream ss;
         ss << i;
         scene->addShape("Snowflake" + ss.str(), snowflake);
@@ -103,11 +104,13 @@ void GLPolygonWidget::paintGL()
 
     // Render child polygon
     glMatrixMode(GL_MODELVIEW);
-
-    glRotatef(rotateBy.y, 1, 0, 0);
-    glRotatef(rotateBy.x, 0, 1, 0);
-    rotateBy = Point();
+    camera->setX(rotateBy.x);
+    camera->setY(rotateBy.y);
+    camera->moveCamera();
     scene->render();
+    camera->setX(0);
+    camera->setY(0);
+    rotateBy = Point();
 
     // Flush to render
     glFlush();

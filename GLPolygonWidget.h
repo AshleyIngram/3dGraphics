@@ -3,6 +3,7 @@
 
 #include <QGLWidget>
 #include "Scene.h"
+#include "Camera.h"
 
 class GLPolygonWidget : public QGLWidget
 {
@@ -25,5 +26,6 @@ class GLPolygonWidget : public QGLWidget
         Point rotateStartPoint;
         Point rotateBy;
         TexturedSurface* face;
+        Camera* camera;
 };
 #endif
