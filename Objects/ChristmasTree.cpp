@@ -123,7 +123,13 @@ void ChristmasTree::growBranch(int s, int rotation, int size)
 			// Add a bauble on end branches
 			Shape bauble = Sphere(0.02, Point(0, 0, 0), 10);
 			ColouredSurface red = ColouredSurface(1, 0, 0);
-			bauble.setSurface(&red);
+			ColouredSurface blue = ColouredSurface(0, 0, 1);
+
+			if (r < 0.2)
+				bauble.setSurface(&red);
+			else
+				bauble.setSurface(&blue);
+
 			glPushMatrix();
 				glTranslatef(0, 0.03, 0);
 				bauble.render();

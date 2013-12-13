@@ -70,7 +70,7 @@ void GLPolygonWidget::initializeGL()
     Bone* terrain = new Bone(terrainShape);
     scene->addShape("Terrain", terrain);
 
-    int numSnowflakes = 200;
+    int numSnowflakes = 2000;
 
     // Create a snowflake
     for (int i = 0; i < numSnowflakes; i++)
