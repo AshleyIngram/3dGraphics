@@ -37,6 +37,6 @@ void Camera::setZ(float v)
 
 void Camera::moveCamera()
 {
-    glRotatef(y, 1, 0, 0);
-    glRotatef(x, 0, 1, 0);
+    glRotatef(totalY, 1, 0, 0);
+    glRotatef(totalX, 0, 1, 0);
 }

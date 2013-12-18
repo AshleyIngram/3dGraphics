@@ -7,6 +7,7 @@ class Vertex : public Point
 {
 	public:
 		Vertex(float x, float y, float z, Vector n);
+		Vertex(Point p, Vector n);
 		Vertex();
 		Vector normal;
 };

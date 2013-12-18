@@ -14,11 +14,14 @@ class GLPolygonWidget : public QGLWidget
         void render();
         void mouseClickEvent(QMouseEvent* e);
         void mouseMoveEvent(QMouseEvent* e);
+
+        bool enableShader;
         
     protected:
         void initializeGL();
         void resizeGL(int w, int h);
         void paintGL();
+        void loadShader();
 
     private:
         QWidget* parent;
@@ -27,5 +30,6 @@ class GLPolygonWidget : public QGLWidget
         Point rotateBy;
         TexturedSurface* face;
         Camera* camera;
+        QGLShaderProgram* shader;
 };
 #endif

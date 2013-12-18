@@ -24,6 +24,7 @@ class GLPolygonWindow : public QWidget
         QBoxLayout* windowLayout;
         GLPolygonWidget* polygonWidget;
         QCheckBox* isAnimating;
+        QCheckBox* shaderState;
         
         GLPolygonWindow(QWidget* parent, Scene* scene);
         ~GLPolygonWindow();

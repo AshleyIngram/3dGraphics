@@ -19,13 +19,18 @@
 #include "Snowman.h"
 #include "HeightSurface.h"
 
+#include <QGLShader>
+#include "GL/gl.h"
+#include <fstream>
+
 GLPolygonWidget::GLPolygonWidget(QWidget* parent, Scene* scene) 
 {
     this->parent = parent;
     this->scene = scene;
     this->rotateStartPoint = Point(0, 0, 0);
     this->rotateBy = Point(0, 0, 0);
-    this->camera = new Camera();
+    this->camera = scene->camera;
+    this->enableShader = false;
 }
 
 void GLPolygonWidget::mouseClickEvent(QMouseEvent* e)
@@ -40,9 +45,39 @@ void GLPolygonWidget::mouseMoveEvent(QMouseEvent* e)
     update();
 }
 
+void GLPolygonWidget::loadShader()
+{
+    // Get shader code from file
+    std::ifstream shaderFile;
+    shaderFile.open("Shaders/ShadowShader.glsl");
+    std::string shaderCode((std::istreambuf_iterator<char>(shaderFile)), std::istreambuf_iterator<char>());
+    shaderFile.close();
+
+    QGLShader frag_shader(QGLShader::Fragment);
+    frag_shader.compileSourceCode(shaderCode.c_str());
+
+    std::ifstream vertexShader;
+    vertexShader.open("Shaders/ShadowVertexShader.glsl");
+    std::string vert_shaderCode((std::istreambuf_iterator<char>(vertexShader)), std::istreambuf_iterator<char>());
+    shaderFile.close();
+
+    QGLShader vert_shader(QGLShader::Vertex);
+    vert_shader.compileSourceCode(vert_shaderCode.c_str());
+
+    QGLShaderProgram* program = new QGLShaderProgram(context(), this);
+    program->addShader(&frag_shader);
+    program->addShader(&vert_shader);
+    program->link();
+    program->bind();
+    this->shader = program;
+}
+
+
 // Initial OpenGL setup
 void GLPolygonWidget::initializeGL()
 {
+    loadShader();
+    this->scene->setShader(shader);
     glEnable(GL_DEPTH_TEST);
     glClearColor(0.3, 0.3, 0.3, 0.0);
 
@@ -91,7 +126,6 @@ void GLPolygonWidget::initializeGL()
 void GLPolygonWidget::resizeGL(int w, int h)
 {
     glMatrixMode(GL_PROJECTION);
-    // glOrtho(-1, 1, -1, 1, -1, 1);
     glLoadIdentity();
     glOrtho(-fmax(1, (double)w/h), fmax(1, (double)w/h), -fmax(1, (double)h/w), fmax(1, (double)h/w), -1, 2);
     glViewport(0, 0, w, h);
@@ -102,11 +136,19 @@ void GLPolygonWidget::paintGL()
 {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+    if (this->enableShader)
+    {
+        this->shader->bind();
+    }
+    else
+    {
+        this->shader->release();
+    }
+
     // Render child polygon
     glMatrixMode(GL_MODELVIEW);
     camera->setX(rotateBy.x);
     camera->setY(rotateBy.y);
-    camera->moveCamera();
     scene->render();
     camera->setX(0);
     camera->setY(0);

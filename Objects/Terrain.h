@@ -18,5 +18,8 @@ class Terrain : public Shape
 		Vector getNormal(int i, int j);
 		int size;
 		std::vector<std::vector<Point> > map;
+
+	private:
+		Vertex pointToVertex(Point p);
 };
 #endif

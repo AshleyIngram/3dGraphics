@@ -63,7 +63,14 @@ Point Snowflake::getRandomPosition(bool reseed)
     float hStart = (float)(rand() % 200) / 100 - 1;
 
     // Random distribution vertically (up to a full screen above)
-    float vStart = 1 + (float)(rand() % 200 + 1) / 100;
+    float vStart = (1 + (float)(rand() % 200 + 1) / 100) + 1;
+
+    if (reseed == false)
+    {
+    	// First iteration... make it a bit more uniform
+    	float toAdd = (float)(rand() % 200 + 1) / 100;
+    	vStart += toAdd;
+    }
 
     // Random between 1 and -1 for depth
     float dStart = (float)(rand() % 200) / 100 - 1;

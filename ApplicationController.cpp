@@ -14,6 +14,9 @@ ApplicationController::ApplicationController(GLPolygonWindow* window, Scene* sce
     // Turn on/off animation
     connect(window->isAnimating, SIGNAL(toggled(bool)), this, SLOT(setAnimation(bool)));
 
+    // Turn on/off shader
+    connect(window->shaderState, SIGNAL(toggled(bool)), this, SLOT(setShaderState(bool)));
+
     // Start the timer
     timer = new QTimer(this);
     connect(timer, SIGNAL(timeout()), this, SLOT(nextFrame()));
@@ -23,6 +26,11 @@ ApplicationController::ApplicationController(GLPolygonWindow* window, Scene* sce
 void ApplicationController::setAnimation(bool animate)
 {
 	isAnimating = animate;
+}
+
+void ApplicationController::setShaderState(bool shaderState)
+{
+    window->polygonWidget->enableShader = shaderState;
 }
 
 void ApplicationController::nextFrame()

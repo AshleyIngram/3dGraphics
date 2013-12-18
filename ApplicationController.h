@@ -18,6 +18,7 @@ class ApplicationController : public QObject
     public slots:
     	void nextFrame();
     	void setAnimation(bool animate);
+        void setShaderState(bool state);
         
     private:
         Scene* scene;

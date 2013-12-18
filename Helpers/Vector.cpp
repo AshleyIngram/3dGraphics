@@ -22,6 +22,14 @@ Vector::Vector(Point p1, Point p2)
     this->z = p2.z - p1.z;
 }
 
+Vector::Vector(float x, float y, float z, float w)
+{
+    this->x = x;
+    this->y = y;
+    this->z = z;
+    this->w = w;
+}
+
 Vector Vector::operator*(Vector input)
 {
     // Calculate the Cross Product
@@ -31,6 +39,17 @@ Vector Vector::operator*(Vector input)
     ret.y = (this->z * input.x) - (this->x * input.z);
     ret.z = (this->x * input.y) - (this->y * input.x);
     
+    return ret;
+}
+
+Vector Vector::operator-(Vector input)
+{
+    Vector ret = Vector();
+
+    ret.x = this->x - input.x;
+    ret.y = this->y - input.y;
+    ret.z = this->z - input.z;
+
     return ret;
 }
 

@@ -22,11 +22,16 @@ GLPolygonWindow::GLPolygonWindow(QWidget* parent, Scene* scene)
     rowOneLayout->addWidget(polygonWidget);
     windowLayout->addLayout(rowOneLayout);
 
-    // Second row for animation
+    // Second row for checkboxes
     QBoxLayout* rowTwoLayout = new QBoxLayout(QBoxLayout::LeftToRight);
     isAnimating = new QCheckBox(tr("Animate"));
     isAnimating->setCheckState(Qt::Checked);
     rowTwoLayout->addWidget(isAnimating);
+
+    shaderState = new QCheckBox(tr("Shadows"));
+    shaderState->setCheckState(Qt::Unchecked);
+    rowTwoLayout->addWidget(shaderState);
+
     windowLayout->addLayout(rowTwoLayout);
 }
 

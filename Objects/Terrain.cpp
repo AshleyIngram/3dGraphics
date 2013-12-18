@@ -14,9 +14,9 @@ Terrain::Terrain()
 		this->map[i].resize(this->size);
 	}
 
-	for (int i = 0; i <= size-1; i++)
+	for (int i = 0; i < size; i++)
 	{
-		for (int j = 0; j <= size-1; j++)
+		for (int j = 0; j < size; j++)
 		{
 			float x = ((float)2 / (size - 1) * i) - 1;
 			float y = ((float)2 / (size - 1) * j) - 1;
@@ -25,12 +25,16 @@ Terrain::Terrain()
 		}
 	}
 
-	setRenderPoints();
+	this->setRenderPoints();
+
 }
 
 void Terrain::setRenderPoints()
 {
+	// Clear the points from last time
 	quads = std::vector<Quad>();
+
+	Vector nullVector = Vector(0, 0, 0, 0);
 
 	for (int i = 0; i < size-1; i++)
 	{
@@ -41,24 +45,57 @@ void Terrain::setRenderPoints()
 			Point p3 = map[i+1][j];
 			Point p4 = map[i+1][j+1];
 
-			/*Vector n1 = Vector(p1.x, p1.y, 1);
-			Vector n2 = Vector(p2.x, p2.y, 1);
-			Vector n3 = Vector(p3.x, p3.y, 1);
-			Vector n4 = Vector(p4.x, p4.y, 1);*/
 			Vector n1 = getNormal(i, j).normalize();
 			Vector n2 = getNormal(i, j+1).normalize();
 			Vector n3 = getNormal(i+1, j).normalize();
 			Vector n4 = getNormal(i+1, j+1).normalize();
 
-			Vertex v1 = Vertex(p1.x, p1.y, p1.z, n1);
-			Vertex v2 = Vertex(p2.x, p2.y, p2.z, n2);
-			Vertex v3 = Vertex(p3.x, p3.y, p3.z, n3);
-			Vertex v4 = Vertex(p4.x, p4.y, p4.z, n4);
+			Vertex v1 = Vertex(p1, n1);
+			Vertex v2 = Vertex(p2, n2);
+			Vertex v3 = Vertex(p3, n3);
+			Vertex v4 = Vertex(p4, n4);
 
 			Quad q = Quad(v1, v2, v4, v3);
 			quads.push_back(q);
+
+			// render the bottom plane
+			Point b1 = map[i][j];
+			b1.y = -0.75;
+			Vertex pb1 = Vertex(b1.x, b1.y, b1.z, nullVector);
+
+			Point b2 = map[i][j+1];
+			b2.y = -0.75;
+			Vertex pb2 = Vertex(b2.x, b2.y, b2.z, nullVector);
+
+			Point b3 = map[i+1][j];
+			b3.y = -0.75;
+			Vertex pb3 = Vertex(b3.x, b3.y, b3.z, nullVector);
+			
+			Point b4 = map[i+1][j+1];
+			b4.y = -0.75;
+			Vertex pb4 = Vertex(b4.x, b4.y, b4.z, nullVector);
+
+			Quad q2 = Quad(pb1, pb2, pb4, pb3);
+			quads.push_back(q2);
 		}
 	}
+
+	// Around the boundary
+	Point p1 = map[0][0];
+	Point p2 = map[0][0];
+	p2.y = -0.75;
+
+	Point p3 = map[0][size-1];
+	Point p4 = map[0][size-1];
+	p4.y = -0.75;
+
+	Vertex v1 = Vertex(p1.x, p1.y, p1.z, nullVector);
+	Vertex v2 = Vertex(p2.x, p2.y, p2.z, nullVector);
+	Vertex v3 = Vertex(p3.x, p3.y, p3.z, nullVector);
+	Vertex v4 = Vertex(p4.x, p4.y, p4.z, nullVector);
+
+	Quad q = Quad(v1, v3, v4, v2);
+	quads.push_back(q);
 }
 
 Vector Terrain::getNormal(int i, int j) 
@@ -88,27 +125,6 @@ Vector Terrain::getNormal(int i, int j)
 
 void Terrain::render()
 {
-	// Fixed lighting for snow.
-    /*glShadeModel(GL_FLAT);
-    glDisable(GL_LIGHT0);
-    glEnable(GL_LIGHT1);
-    glEnable(GL_COLOR_MATERIAL);
-    
-    static const GLfloat black[4] = { 0.0, 0.0, 0.0, 1.0 };
-    static const GLfloat white_light[4] = { 1.0, 1.0, 1.0, 1.0 };
-    static const GLfloat grey[4] = { 0.3, 0.3, 0.3, 1.0 };
-    static const float lightPosition[] = { -192, -358, 0, 0 };
-    glLightfv(GL_LIGHT1, GL_POSITION, lightPosition);
-    glLightfv(GL_LIGHT1, GL_AMBIENT, grey);
-    glLightfv(GL_LIGHT1, GL_DIFFUSE, white_light);
-    glLightfv(GL_LIGHT1, GL_SPECULAR, black);
-
-    Shape::render();
-
-    glDisable(GL_LIGHTING);
-    glDisable(GL_LIGHT1);
-    glEnable(GL_LIGHT0);*/
-
 	glEnable(GL_LIGHTING);
 	glShadeModel(GL_SMOOTH);
 	Shape::render();
