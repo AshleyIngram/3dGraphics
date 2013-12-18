@@ -29,6 +29,19 @@ Terrain::Terrain()
 
 }
 
+void Terrain::addBoundaryPoints(Point p1, Point p2, Point p3, Point p4)
+{
+	Vector nullVector = Vector(0, 0, 0, 0);
+	
+	Vertex v1 = Vertex(p1, nullVector);
+	Vertex v2 = Vertex(p2, nullVector);
+	Vertex v3 = Vertex(p3, nullVector);
+	Vertex v4 = Vertex(p4, nullVector);
+
+	Quad q = Quad(v1, v3, v4, v2);
+	quads.push_back(q);
+}
+
 void Terrain::setRenderPoints()
 {
 	// Clear the points from last time
@@ -61,19 +74,19 @@ void Terrain::setRenderPoints()
 			// render the bottom plane
 			Point b1 = map[i][j];
 			b1.y = -0.75;
-			Vertex pb1 = Vertex(b1.x, b1.y, b1.z, nullVector);
+			Vertex pb1 = Vertex(b1, nullVector);
 
 			Point b2 = map[i][j+1];
 			b2.y = -0.75;
-			Vertex pb2 = Vertex(b2.x, b2.y, b2.z, nullVector);
+			Vertex pb2 = Vertex(b2, nullVector);
 
 			Point b3 = map[i+1][j];
 			b3.y = -0.75;
-			Vertex pb3 = Vertex(b3.x, b3.y, b3.z, nullVector);
+			Vertex pb3 = Vertex(b3, nullVector);
 			
 			Point b4 = map[i+1][j+1];
 			b4.y = -0.75;
-			Vertex pb4 = Vertex(b4.x, b4.y, b4.z, nullVector);
+			Vertex pb4 = Vertex(b4, nullVector);
 
 			Quad q2 = Quad(pb1, pb2, pb4, pb3);
 			quads.push_back(q2);
@@ -81,21 +94,51 @@ void Terrain::setRenderPoints()
 	}
 
 	// Around the boundary
-	Point p1 = map[0][0];
-	Point p2 = map[0][0];
-	p2.y = -0.75;
+	{
+		Point p1 = map[0][0];
+		Point p2 = map[0][0];
+		p2.y = -0.75;
 
-	Point p3 = map[0][size-1];
-	Point p4 = map[0][size-1];
-	p4.y = -0.75;
+		Point p3 = map[0][size-1];
+		Point p4 = map[0][size-1];
+		p4.y = -0.75;
 
-	Vertex v1 = Vertex(p1.x, p1.y, p1.z, nullVector);
-	Vertex v2 = Vertex(p2.x, p2.y, p2.z, nullVector);
-	Vertex v3 = Vertex(p3.x, p3.y, p3.z, nullVector);
-	Vertex v4 = Vertex(p4.x, p4.y, p4.z, nullVector);
+		addBoundaryPoints(p1, p2, p3, p4);
+	}
+	{
+		Point p1 = map[0][0];
+		Point p2 = map[0][0];
+		p2.y = -0.75;
 
-	Quad q = Quad(v1, v3, v4, v2);
-	quads.push_back(q);
+		Point p3 = map[size-1][0];
+		Point p4 = map[size-1][0];
+		p4.y = -0.75;
+
+		addBoundaryPoints(p1, p2, p3, p4);
+	}
+	{
+		Point p1 = map[size-1][size-1];
+		Point p2 = map[size-1][size-1];
+		p2.y = -0.75;
+
+		Point p3 = map[0][size-1];
+		Point p4 = map[0][size-1];
+		p4.y = -0.75;
+
+		addBoundaryPoints(p1, p2, p3, p4);
+	}
+	{
+		Point p1 = map[size-1][size-1];
+		Point p2 = map[size-1][size-1];
+		p2.y = -0.75;
+
+		Point p3 = map[size-1][0];
+		Point p4 = map[size-1][0];
+		p4.y = -0.75;
+		
+		addBoundaryPoints(p1, p2, p3, p4);
+	}
+
 }
 
 Vector Terrain::getNormal(int i, int j) 

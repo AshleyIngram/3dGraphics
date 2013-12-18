@@ -14,7 +14,7 @@ class Scene
 
 		void addShape(std::string key, Bone* bone);
 		void removeShape(std::string key);
-		void render();
+		void render(bool shaderEnabled);
 		void setShader(QGLShaderProgram* shader);
 
 		std::map<std::string, Bone*> getBones();

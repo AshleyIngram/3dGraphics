@@ -149,7 +149,7 @@ void GLPolygonWidget::paintGL()
     glMatrixMode(GL_MODELVIEW);
     camera->setX(rotateBy.x);
     camera->setY(rotateBy.y);
-    scene->render();
+    scene->render(this->enableShader);
     camera->setX(0);
     camera->setY(0);
     rotateBy = Point();

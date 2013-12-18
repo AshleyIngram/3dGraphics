@@ -21,5 +21,6 @@ class Terrain : public Shape
 
 	private:
 		Vertex pointToVertex(Point p);
+		void addBoundaryPoints(Point p1, Point p2, Point p3, Point p4);
 };
 #endif

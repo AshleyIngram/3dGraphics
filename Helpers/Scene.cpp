@@ -66,7 +66,6 @@ Vector QVectorToVector(QVector4D v)
 
 void Scene::renderScene()
 {
-	
 	typedef map<string, Bone*>::iterator mapi;
 
 	for (mapi i = bones.begin(); i != bones.end(); i++)
@@ -75,98 +74,108 @@ void Scene::renderScene()
 	}
 }
 
-void Scene::render()
+void Scene::render(bool shaderEnabled)
 {
-	QMatrix4x4 lightProjectionMatrix;
-	QMatrix4x4 lightModelViewMatrix;
-	GLfloat lightPosition[4] = { 0, 0, -1.0, 0.0 };
+	if (shaderEnabled)
+	{
+		QMatrix4x4 lightProjectionMatrix;
+		QMatrix4x4 lightModelViewMatrix;
+		GLfloat lightPosition[4] = { 0, 0, -1.0, 0.0 };
 
-	glMatrixMode(GL_MODELVIEW);
-	glLoadIdentity();
+		glMatrixMode(GL_MODELVIEW);
+		glLoadIdentity();
 
-	// Create the shadow map texture
-	GLuint shadowMapTexture;
-	glGenTextures(1, &shadowMapTexture);
-	glBindTexture(GL_TEXTURE_2D, shadowMapTexture);
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT, 512, 612, 0,
-				 GL_DEPTH_COMPONENT, GL_UNSIGNED_BYTE, NULL);
+		// Create the shadow map texture
+		GLuint shadowMapTexture;
+		glGenTextures(1, &shadowMapTexture);
+		glBindTexture(GL_TEXTURE_2D, shadowMapTexture);
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT, 512, 612, 0,
+					 GL_DEPTH_COMPONENT, GL_UNSIGNED_BYTE, NULL);
 
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
 
-	// Compute the matrices for light and camera
-    glPushMatrix();
-    	glLoadIdentity();
-    	GLfloat cameraProjection_f[16];
-    	glGetFloatv(GL_MODELVIEW_MATRIX, cameraProjection_f);
+		// Compute the matrices for light and camera
+	    glPushMatrix();
+	    	glLoadIdentity();
+	    	GLfloat cameraProjection_f[16];
+	    	glGetFloatv(GL_MODELVIEW_MATRIX, cameraProjection_f);
 
-    	glLoadIdentity();
-    	camera->moveCamera();
-    	GLfloat cameraView_f[16];
-    	glGetFloatv(GL_MODELVIEW_MATRIX, cameraView_f);
+	    	glLoadIdentity();
+	    	camera->moveCamera();
+	    	GLfloat cameraView_f[16];
+	    	glGetFloatv(GL_MODELVIEW_MATRIX, cameraView_f);
 
-    	glLoadIdentity();
-    	GLfloat lightProjection_f[16];
-    	glGetFloatv(GL_MODELVIEW_MATRIX, lightProjection_f);
-    	lightProjectionMatrix = floatToQMatrix(lightProjection_f);
+	    	glLoadIdentity();
+	    	GLfloat lightProjection_f[16];
+	    	glGetFloatv(GL_MODELVIEW_MATRIX, lightProjection_f);
+	    	lightProjectionMatrix = floatToQMatrix(lightProjection_f);
 
-    	glLoadIdentity();
-    	gluLookAt(lightPosition[0], lightPosition[1], lightPosition[2], 0, 0, 0, 0, 1, 0);
-    	GLfloat lightView_f[16];
-    	glGetFloatv(GL_MODELVIEW_MATRIX, lightView_f);
-    	lightModelViewMatrix = floatToQMatrix(lightView_f);
-    glPopMatrix();
+	    	glLoadIdentity();
+	    	gluLookAt(lightPosition[0], lightPosition[1], lightPosition[2], 0, 0, 0, 0, 1, 0);
+	    	GLfloat lightView_f[16];
+	    	glGetFloatv(GL_MODELVIEW_MATRIX, lightView_f);
+	    	lightModelViewMatrix = floatToQMatrix(lightView_f);
+	    glPopMatrix();
 
-	// First render pass from the lights point of view
-	glMatrixMode(GL_PROJECTION);
-	glLoadMatrixf(lightProjection_f);
+		// First render pass from the lights point of view
+		glMatrixMode(GL_PROJECTION);
+		glLoadMatrixf(lightProjection_f);
 
-	glMatrixMode(GL_MODELVIEW);
-	glLoadMatrixf(lightView_f);
+		glMatrixMode(GL_MODELVIEW);
+		glLoadMatrixf(lightView_f);
 
-	glViewport(0, 0, 512, 612);
+		glViewport(0, 0, 512, 612);
 
-	// Disable colour
-	glColorMask(0, 0, 0, 0);
+		// Disable colour
+		glColorMask(0, 0, 0, 0);
 
-	// Cull the front-faces for rounding error
-	glCullFace(GL_FRONT);
+		// Cull the front-faces for rounding error
+		glCullFace(GL_FRONT);
 
-	// Render and store
-	renderScene();
-	glBindTexture(GL_TEXTURE_2D, shadowMapTexture);
-	glCopyTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, 0, 0, 512, 612);
+		// Render and store
+		renderScene();
+		glBindTexture(GL_TEXTURE_2D, shadowMapTexture);
+		glCopyTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, 0, 0, 512, 612);
 
-	// Set everything back to normal
-	glCullFace(GL_BACK);
-	glColorMask(1, 1, 1, 1);
-	glClear(GL_DEPTH_BUFFER_BIT);
+		// Set everything back to normal
+		glCullFace(GL_BACK);
+		glColorMask(1, 1, 1, 1);
+		glClear(GL_DEPTH_BUFFER_BIT);
 
-	// Second render pass from the point of view of the camera
-	glMatrixMode(GL_PROJECTION);
-	glLoadMatrixf(cameraProjection_f);
+		// Second render pass from the point of view of the camera
+		glMatrixMode(GL_PROJECTION);
+		glLoadMatrixf(cameraProjection_f);
 
-	glMatrixMode(GL_MODELVIEW);
-	glLoadMatrixf(cameraView_f);
+		glMatrixMode(GL_MODELVIEW);
+		glLoadMatrixf(cameraView_f);
 
-    renderScene();
+	    renderScene();
 
-    // Bias matrix (to switch to the correct co-ords)
-	static QMatrix4x4 biasMatrix(0.5f, 0.0f, 0.0f, 0.0f,
-								0.0f, 0.5f, 0.0f, 0.0f,
-								0.0f, 0.0f, 0.5f, 0.0f,
-								0.5f, 0.5f, 0.5f, 1.0f);
+	    // Bias matrix (to switch to the correct co-ords)
+		static QMatrix4x4 biasMatrix(0.5f, 0.0f, 0.0f, 0.0f,
+									0.0f, 0.5f, 0.0f, 0.0f,
+									0.0f, 0.0f, 0.5f, 0.0f,
+									0.5f, 0.5f, 0.5f, 1.0f);
 
-	// Transpose the bias (from row to column major)
-	biasMatrix = biasMatrix.transposed();
+		// Transpose the bias (from row to column major)
+		biasMatrix = biasMatrix.transposed();
 
-	QMatrix4x4 textureMatrix = biasMatrix * lightProjectionMatrix * lightModelViewMatrix;
-	shader->setUniformValueArray("depthMVP", &textureMatrix, 1);
-	
-	// Free texture memory
-	glDeleteTextures(1, &shadowMapTexture);
+		QMatrix4x4 textureMatrix = biasMatrix * lightProjectionMatrix * lightModelViewMatrix;
+		shader->setUniformValueArray("depthMVP", &textureMatrix, 1);
+		
+		// Free texture memory
+		glDeleteTextures(1, &shadowMapTexture);
+	}
+	else
+	{
+		glPushMatrix();
+			this->camera->moveCamera();
+			renderScene();
+		glPopMatrix();
+	}
 }
 
 map<string, Bone*> Scene::getBones()
