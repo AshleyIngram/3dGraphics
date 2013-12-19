@@ -49,7 +49,7 @@ void GLPolygonWidget::loadShader()
 {
     // Get shader code from file
     std::ifstream shaderFile;
-    shaderFile.open("Shaders/ShadowShader.glsl");
+    shaderFile.open("Shaders/ShadowFragmentShader.glsl");
     std::string shaderCode((std::istreambuf_iterator<char>(shaderFile)), std::istreambuf_iterator<char>());
     shaderFile.close();
 
