@@ -15,7 +15,7 @@ class Snowflake : public Bone
 		virtual void nextFrame(); 
 
 	private:
-		static Shape* getSphere();
+		static Shape* getCircle();
 		Point getRandomPosition(bool reseed = true);
 		Point position;
 		Terrain* terrain;

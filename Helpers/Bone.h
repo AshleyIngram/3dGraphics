@@ -22,9 +22,9 @@ class Bone
         void animate();
         virtual void nextFrame();
         void setAnimation(Point start, Point end, int rate, int delay);
+        Shape* shape;
                 
     protected:
-        Shape* shape;
         std::map<std::string, Bone*> children;
         Point rotatePoint(Point p, float x, float y, float z);
         float xRotate;
